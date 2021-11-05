@@ -1,12 +1,11 @@
 {
   "dependencies": {
     "@openscreen/sdk": "^0.3.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "cloud-local-storage": "^0.0.13",
     "twilio": "^3.64.0"
   },
   "devDependencies": {
-    "serverless-dotenv-plugin": "^3.10.0",
-    "serverless-offline": "^7.0.0"
+    "serverless-dotenv-plugin": "^3.10.0"
   }
 }

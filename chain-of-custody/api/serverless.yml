@@ -7,7 +7,6 @@ package:
   excludeDevDependencies: true
 
 plugins:
-  - serverless-offline
   - serverless-dotenv-plugin
 
 custom:
