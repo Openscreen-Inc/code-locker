@@ -1,0 +1,24 @@
+{
+  "name": "soil-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm i --prefix backend && npm i --prefix scripts && npm i --prefix client",
+    "getTunnel": "curl http://localhost:4040/api/tunnels > tunnels.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openscreen-tv/Deveron-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openscreen-tv/Deveron-Backend/issues"
+  },
+  "homepage": "https://github.com/openscreen-tv/Deveron-Backend#readme",
+  "dependencies": {
+    "axios": "^0.23.0"
+  }
+}
