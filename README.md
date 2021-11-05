@@ -10,4 +10,6 @@ The complete list of sample applications can be found below:
 - [Chain of Custody](chain-of-custody)
 - [Consumer Packaging](consumer-packaging)
 - [Parts and Warranties](parts-and-warranties)
+- [Personalized Direct Mail](personalized-direct-mail)
+- [Toys and Games](toys-and-games)
 - [Trackable Print Advertising](trackable-print-advertising)
