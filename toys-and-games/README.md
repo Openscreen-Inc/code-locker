@@ -42,16 +42,15 @@ Openscreen Secret: This information can be found on the  [Openscreen Dashboard](
 
 Openscreen Project Id: You can find one once you have created a project on the  [Openscreen Dashboard](https://www.app.openscreen.com)
 
-
 ### Local Development
 
 #### 1. Clone the repository
 
 `$ git clone git@github.com:Openscreen-Inc/code-locker.git`
 
-#### 2. Navigate to the Personalized Direct Mail App Folder
+#### 2. Navigate to the Toys and Games Folder
 
-`$ cd trivia-game`
+`$ cd toys-and-games`
 
 #### 3. Install Dependencies
 
