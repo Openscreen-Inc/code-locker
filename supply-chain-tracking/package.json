@@ -1,0 +1,38 @@
+{
+  "name": "openscreen-supply-chain-demo",
+  "version": "1.0.0",
+  "description": "Openscreen Supply Chain Demo",
+  "license": "ISC",
+  "author": "marc-openscreen <marc.bouchard@openscreen.com>",
+  "scripts": {
+    "lint": "eslint --ext=js,jsx  src",
+    "start": "npm run start --prefix ui",
+    "serve": "npm run serve --prefix ui",
+    "local:dynamodb:admin": "DYNAMO_ENDPOINT=http://localhost:8000 DEFAULT_THEME=dark dynamodb-admin",
+    "local:dynamodb:up": "docker-compose up --detach",
+    "local:dynamodb:down": "docker-compose down",
+    "install": "npm i --prefix api && npm i --prefix ui"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.37.0",
+    "@aws-sdk/credential-provider-ini": "^3.37.0",
+    "@openscreen/sdk": "^0.4.1",
+    "aws-sdk": "^2.1012.0",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@types/node": "^16.11.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

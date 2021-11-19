@@ -1,0 +1,25 @@
+export const STATUS = {
+  AVAILABLE: 'AVAILABLE',
+  BOOKED: 'BOOKED',
+  DELIVER_TO_CLIENT: 'DELIVER_TO_CLIENT',
+  DELIVER_TO_INVENTORY: 'DELIVER_TO_INVENTORY',
+  MAINTENANCE: 'MAINTENANCE',
+}
+
+export const FURNITURE = {
+  CHAIR: 'CHAIR',
+  DESK: 'DESK',
+  LAMP: 'LAMP',
+  SOFA: 'SOFA',
+  TABLE: 'TABLE',
+}
+
+export const CONDITION = {
+  GOOD: 'GOOD',
+  USED: 'USED',
+  DAMAGED: 'DAMAGED',
+}
+
+export const STATUS_VALUES = Object.values(STATUS)
+export const CONDITION_VALUES = Object.values(CONDITION)
+export const FURNITURE_VALUES = Object.values(FURNITURE)
