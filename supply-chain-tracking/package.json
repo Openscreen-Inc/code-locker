@@ -2,7 +2,7 @@
   "name": "openscreen-supply-chain-demo",
   "version": "1.0.0",
   "description": "Openscreen Supply Chain Demo",
-  "license": "ISC",
+  "license": "MIT",
   "author": "marc-openscreen <marc.bouchard@openscreen.com>",
   "scripts": {
     "lint": "eslint --ext=js,jsx  src",
