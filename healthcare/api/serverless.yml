@@ -21,7 +21,7 @@ provider:
     cors: true
   environment:
     PROJECT_ID: ${env:PROJECT_ID}
-    OS_KEY: ${env:OS_KEY}
+    OS_APIKEY: ${env:OS_KEY}
     OS_SECRET: ${env:OS_SECRET}
 
 functions:

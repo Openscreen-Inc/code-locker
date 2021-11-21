@@ -1,39 +1,43 @@
-const { Openscreen } = require('@openscreen/sdk');
+const PrescriptionStates = require('../../common/PrescriptionStates')
+const response = require('../../common/response')
+const {Openscreen} = require('@openscreen/sdk')
+const {OS_KEY, OS_SECRET} = process.env
 
-const os = new Openscreen().config({
+modules.exports = new Openscreen().config({
   key: process.env.OS_KEY,
   secret: process.env.OS_SECRET,
-});
+})
 
+/**
+ *
+ * @param event
+ * @returns {Promise<{headers: {"Access-Control-Allow-Origin": string, "Access-Control-Allow-Credentials": boolean}, body: string, statusCode: number}>}
+ *
+ * GET /patient/pppppppp-pppp-pppp-pppp-pppppppppppp
+ *    RESPONSE
+ *    {
+ *      state: 'WAITING-FOR-PATIENT-CODE'
+ *    }
+ */
 const getPatientByScanId = async (event) => {
-  const {scanId} = event.pathParameters;
+  const {scanId} = event.pathParameters
   const scan = await os.scan(scanId).get()
-  const asset = await os.asset(scan.assetId).get()
-  const code = Math.floor(Math.random() * 10000)
-  os.scan(scanId)
+  const assetId = scan.assetId
+  const prescription = await os.asset(assetId).get()
+  const contacts = await os.asset(assetId).contacts().get()
+  let {customAttributes} = asset
+  const {patient} = customAttributes
 
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
-    body: JSON.stringify({
-      ...asset,
-    }),
-  };
-};
+  customAttributes.state = PrescriptionStates.WAITING_FOR_PATIENT_CONFIRMATION_CODE
+  // GENERATE A 4 DIGIT CODE. FOR DEMO PURPOSES ONLY. NOT SECURE.
+  customAttributes.code = `000${Math.floor(Math.random() * 10000)}`.substr(-4),
+  await os.asset(assetId).update({customAttributes})
 
-const updateAsset = async (event) => {
-  const { id } = event.pathParameters
+  return response(customAttributes)
+}
 
-  const newCustomAttributes = JSON.parse(event.body);
-
-  await os.asset(id).update({
-    customAttributes: {
-      ...newCustomAttributes,
-    },
-  });
+const updatePatientByScanId = async (event) => {
+  const {scanId} = event.pathParameters
 
   return {
     statusCode: 201,
@@ -41,25 +45,7 @@ const updateAsset = async (event) => {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
     },
-  };
-};
+  }
+}
 
-const getAssetsByBatch = async (event) => {
-  const { batchId } = event.pathParameters;
-
-  const { assets } = await os.project(process.env.PROJECT_ID).assets().get();
-  const filtered = assets.filter(asset => asset.customAttributes.batchId === batchId)
-
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
-    body: JSON.stringify({
-      filtered,
-    }),
-  };
-};
-
-module.exports = { getAssetsByBatch, getScan, updateAsset };
+module.exports = {getPatientByScanId, updatePatientByScanId}

@@ -1,0 +1,5 @@
+module.export = {
+  DOCTOR: 'DOCTOR',
+  PATIENT: 'PATIENT',
+  PHARMACIST: 'PHARMACIST',
+}

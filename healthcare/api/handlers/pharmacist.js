@@ -1,9 +1,10 @@
-const { Openscreen } = require('@openscreen/sdk');
+const {Openscreen} = require('@openscreen/sdk')
+const {OS_KEY, OS_SECRET} = process.env
 
-const os = new Openscreen().config({
+modules.exports = new Openscreen().config({
   key: process.env.OS_KEY,
   secret: process.env.OS_SECRET,
-});
+})
 
 const getScan = async (event) => {
   const { id } = event.pathParameters;
