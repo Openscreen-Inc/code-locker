@@ -1,23 +1,29 @@
 {
-  "name": "soil-app",
+  "name": "openscreen-chain-of-custody-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Openscreen Chain of Custody Demo",
+  "keywords": ["Openscreen", "qrcode", "QR"],
+  "homepage": "https://github.com/Openscreen-Inc/code-locker",
+  "bugs": {
+    "url": "https://github.com/Openscreen-Inc/code-locker/issues",
+    "email": "dev@openscreen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Openscreen-Inc/code-locker",
+    "directory": "chain-of-custody"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "openscreen-com",
+    "email": "dev@openscreen.com",
+    "url": "https://github.com/openscreen-com"
+  },
   "main": "index.js",
   "scripts": {
     "install": "npm i --prefix api && npm i --prefix scripts && npm i --prefix client",
     "getTunnel": "curl http://localhost:4040/api/tunnels > tunnels.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/openscreen-tv/Deveron-Backend.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/openscreen-tv/Deveron-Backend/issues"
-  },
-  "homepage": "https://github.com/openscreen-tv/Deveron-Backend#readme",
   "dependencies": {
     "axios": "^0.23.0"
   }

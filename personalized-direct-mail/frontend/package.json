@@ -1,7 +1,23 @@
 {
-  "name": "real-estate",
-  "version": "0.1.0",
+  "name": "openscreen-personalized-direct-mail-frontend",
+  "version": "1.0.0",
   "private": true,
+  "description": "Openscreen Personalized Direct Mail Demo Frontend",
+  "homepage": "https://github.com/Openscreen-Inc/code-locker",
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  },
+  "eslintConfig": {
+    "extends": ["react-app", "react-app/jest"]
+  },
   "dependencies": {
     "@chakra-ui/react": "^1.6.5",
     "@emotion/react": "^11.4.0",
@@ -17,31 +33,6 @@
     "react-hook-form": "^7.12.1",
     "react-json-to-csv": "^1.0.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-scripts": "4.0.3"
   }
 }

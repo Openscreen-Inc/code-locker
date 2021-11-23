@@ -1,15 +1,14 @@
 {
-  "name": "codelocker-realestate-app",
+  "name": "openscreen-personalized-direct-mail-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Openscreen Personalized Direct Mail Demo Backend",
+  "homepage": "https://github.com/Openscreen-Inc/code-locker",
+  "license": "MIT",
+  "author": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@openscreen/sdk": "^0.3.0",
     "aws-amplify": "^4.3.2",

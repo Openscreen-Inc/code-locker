@@ -2,8 +2,23 @@
   "name": "openscreen-supply-chain-demo",
   "version": "1.0.0",
   "description": "Openscreen Supply Chain Demo",
+  "keywords": ["Openscreen", "qrcode", "QR"],
+  "homepage": "https://github.com/Openscreen-Inc/code-locker",
+  "bugs": {
+    "url": "https://github.com/Openscreen-Inc/code-locker/issues",
+    "email": "dev@openscreen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Openscreen-Inc/code-locker",
+    "directory": "supply-chain-tracking"
+  },
   "license": "MIT",
-  "author": "marc-openscreen <marc.bouchard@openscreen.com>",
+  "author": {
+    "name": "marc-openscreen",
+    "email": "marc.bouchard@openscreen.com",
+    "url": "https://github.com/marc-openscreen"
+  },
   "scripts": {
     "lint": "eslint --ext=js,jsx  src",
     "start": "npm run start --prefix ui",
