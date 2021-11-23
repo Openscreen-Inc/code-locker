@@ -1,5 +1,5 @@
-import React from "react";
-import { Flex, Text } from "@chakra-ui/react";
+import React from 'react'
+import {Flex, Text} from '@chakra-ui/react'
 
 const Completed = () => {
   return (
@@ -8,7 +8,7 @@ const Completed = () => {
         This sample has ALREADY been registered, tested, and validated
       </Text>
     </Flex>
-  );
-};
+  )
+}
 
-export default Completed;
+export default Completed

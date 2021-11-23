@@ -1,43 +1,28 @@
-import {
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Input,
-  Table,
-  Box,
-  Flex,
-  Button,
-  FormLabel,
-  Spinner,
-  Center,
-} from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import React, {useState} from 'react'
+import {Thead, Tr, Th, Tbody, Td, Input, Table, Box, Flex, Button, FormLabel, Spinner, Center} from '@chakra-ui/react'
+import {useForm} from 'react-hook-form'
+import axios from 'axios'
 
-import React, { useState } from "react";
-
-const url = process.env.REACT_APP_API_ENDPOINT;
+const url = process.env.REACT_APP_API_ENDPOINT
 
 const Portal = () => {
-  const [loading, setLoading] = useState(false);
-  const [batchAssets, setBatchAssets] = useState<any>([]);
-  const { register, handleSubmit } = useForm({
-    reValidateMode: "onChange",
-  });
+  const [loading, setLoading] = useState(false)
+  const [batchAssets, setBatchAssets] = useState<any>([])
+  const {register, handleSubmit} = useForm({
+    reValidateMode: 'onChange',
+  })
 
   const onSubmit = async (data: any) => {
-    setLoading(true);
+    setLoading(true)
     try {
-      const res = await axios.get(`${url}/batch/${data.search.toUpperCase()}`);
-      setBatchAssets(res.data.filtered);
-      setLoading(false);
+      const res = await axios.get(`${url}/batch/${data.search.toUpperCase()}`)
+      setBatchAssets(res.data.filtered)
+      setLoading(false)
     } catch (error) {
-      console.log(error);
-      setLoading(false);
+      console.log(error)
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <Box marginX="20px" marginTop="100px">
@@ -45,18 +30,8 @@ const Portal = () => {
       <form action="submit" onSubmit={handleSubmit(onSubmit)}>
         <Flex margin="20px" justify="space-between" maxW="550px" align="center">
           <FormLabel>Enter a Batch ID:</FormLabel>
-          <Input
-            {...register("search")}
-            maxW="300px"
-            variant="outline"
-            placeholder="Batch"
-          />
-          <Button
-            isLoading={loading}
-            bgColor="#B4C7E7"
-            color="gray.700"
-            type="submit"
-          >
+          <Input {...register('search')} maxW="300px" variant="outline" placeholder="Batch" />
+          <Button isLoading={loading} bgColor="#B4C7E7" color="gray.700" type="submit">
             Search
           </Button>
         </Flex>
@@ -87,33 +62,22 @@ const Portal = () => {
                   <Td key={i}>{e.customAttributes?.batchId}</Td>
                   <Td key={i}>{e.customAttributes?.soilSampleId}</Td>
                   <Td key={i}>
-                    {e.customAttributes.assetCollector?.firstName}{" "}
-                    {e.customAttributes.assetCollector?.lastName}
+                    {e.customAttributes.assetCollector?.firstName} {e.customAttributes.assetCollector?.lastName}
                   </Td>
                   <Td key={i}>{e.customAttributes?.assetAcres}</Td>
                   <Td key={i}>{e.customAttributes?.location}</Td>
                   <Td key={i}>{e?.modified}</Td>
                   <Td key={i}>{e.customAttributes?.notes}</Td>
-                  <Td key={i}>
-                    {
-                      e.customAttributes?.submittedLab?.customAttributes
-                        ?.companyName
-                    }
-                  </Td>
-                  <Td key={i}>
-                    {
-                      e.customAttributes?.carbonValidator?.customAttributes
-                        ?.companyName
-                    }
-                  </Td>
+                  <Td key={i}>{e.customAttributes?.submittedLab?.customAttributes?.companyName}</Td>
+                  <Td key={i}>{e.customAttributes?.carbonValidator?.customAttributes?.companyName}</Td>
                 </Tr>
-              );
+              )
             })
           )}
         </Tbody>
       </Table>
     </Box>
-  );
-};
+  )
+}
 
-export default Portal;
+export default Portal

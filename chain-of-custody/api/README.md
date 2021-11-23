@@ -1,15 +1,3 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple REST API with Node.js running on AWS Lambda and API Gateway using the traditional Serverless Framework.'
-layout: Doc
-framework: v2
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
-
 # Serverless Framework Node REST API on AWS
 
 This template demonstrates how to make a simple REST API with Node.js running on AWS Lambda and API Gateway using the traditional Serverless Framework.
@@ -22,7 +10,7 @@ This template does not include any kind of persistence (database). For a more ad
 
 This example is made to work with the Serverless Framework dashboard which includes advanced features like CI/CD, monitoring, metrics, etc.
 
-```
+```bash
 $ serverless login
 $ serverless deploy
 ```
@@ -93,13 +81,12 @@ serverless invoke local --function hello
 
 Which should result in response similar to the following:
 
-```
+```bash
 {
   "statusCode": 200,
   "body": "{\n  \"message\": \"Go Serverless v2.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
 }
 ```
-
 
 Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
 
@@ -111,7 +98,7 @@ It will add the `serverless-offline` plugin to `devDependencies` in `package.jso
 
 After installation, you can start local emulation with:
 
-```
+```bash
 serverless offline
 ```
 

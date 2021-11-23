@@ -1,42 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import { Spinner, Center, Box, Flex, Text } from "@chakra-ui/react";
-import axios from "axios";
-import RegisterScreen from "../forms/register/screen";
-import PostObservationScreen from "../forms/postObservation/screen";
-import CarbonValidation from "../forms/atLab/screen";
-import CompletedScreen from "components/forms/completed/screen";
+import React, {useState, useEffect} from 'react'
+import {useParams} from 'react-router'
+import {Spinner, Center, Box, Flex, Text} from '@chakra-ui/react'
+import axios from 'axios'
 
-const url = process.env.REACT_APP_API_ENDPOINT;
+import RegisterScreen from '../forms/register/screen'
+import PostObservationScreen from '../forms/postObservation/screen'
+import CarbonValidation from '../forms/atLab/screen'
+import CompletedScreen from 'components/forms/completed/screen'
+
+const url = process.env.REACT_APP_API_ENDPOINT
 
 const Home = () => {
-  const { scanId } = useParams<Record<string, string | undefined>>();
-  const [bagData, setBagData] = useState<any>(null);
+  const {scanId} = useParams<Record<string, string | undefined>>()
+  const [bagData, setBagData] = useState<any>(null)
 
   const getForm = () => {
     if (bagData.asset.customAttributes?.state) {
-      if (bagData.asset.customAttributes.state === "observed") {
-        return <PostObservationScreen bag={bagData.asset} />;
-      } else if (bagData.asset.customAttributes?.state === "submitted to lab") {
-        return <CarbonValidation bag={bagData} />;
-      } else if (bagData.asset.customAttributes?.state === "completed") {
-        return <CompletedScreen bag={bagData} />;
+      if (bagData.asset.customAttributes.state === 'observed') {
+        return <PostObservationScreen bag={bagData.asset} />
+      } else if (bagData.asset.customAttributes?.state === 'submitted to lab') {
+        return <CarbonValidation bag={bagData} />
+      } else if (bagData.asset.customAttributes?.state === 'completed') {
+        return <CompletedScreen bag={bagData} />
       }
     } else {
-      return <RegisterScreen bag={bagData} />;
+      return <RegisterScreen bag={bagData} />
     }
-  };
+  }
 
   useEffect(() => {
     axios
       .get(`${url}/asset/${scanId}`)
       .then((res) => {
-        setBagData(res.data);
+        setBagData(res.data)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  }, [scanId]);
+        console.log(err)
+      })
+  }, [scanId])
 
   return (
     <>
@@ -63,7 +64,7 @@ const Home = () => {
         </Box>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

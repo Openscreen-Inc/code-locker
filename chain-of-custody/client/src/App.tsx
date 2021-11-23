@@ -1,10 +1,9 @@
-// import logo from "./logo.svg";
-import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./components/home/home";
-import Portal from "./components/forms/reportingPortal/portal";
-import Navbar from "./components/navbar/navbar";
-import { Box } from "@chakra-ui/react";
+import './App.css'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import Home from './components/home/home'
+import Portal from './components/forms/reportingPortal/portal'
+import Navbar from './components/navbar/navbar'
+import {Box} from '@chakra-ui/react'
 
 const App = () => {
   return (
@@ -23,7 +22,7 @@ const App = () => {
         </Router>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

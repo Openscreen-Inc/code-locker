@@ -1,4 +1,4 @@
-service: deveron-backend
+service: chain-of-custody-api 
 
 frameworkVersion: "2"
 

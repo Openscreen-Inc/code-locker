@@ -1,8 +1,8 @@
-import React from "react";
-import { Flex, Image } from "@chakra-ui/react";
-import logo from "images/logo.png";
-import { IconButton } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import React from 'react'
+import {Flex, Image} from '@chakra-ui/react'
+import logo from 'images/logo.png'
+import {IconButton} from '@chakra-ui/react'
+import {HamburgerIcon} from '@chakra-ui/icons'
 
 const Navbar = () => {
   return (
@@ -18,13 +18,9 @@ const Navbar = () => {
       justify="space-between"
     >
       <Image width="70%" maxW="300px" src={logo} alt="test" />
-      <IconButton
-        display={{ base: "block", lg: "none" }}
-        aria-label="Search database"
-        icon={<HamburgerIcon />}
-      />
+      <IconButton display={{base: 'block', lg: 'none'}} aria-label="Search database" icon={<HamburgerIcon />} />
     </Flex>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

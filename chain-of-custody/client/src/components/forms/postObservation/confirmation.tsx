@@ -1,23 +1,18 @@
-import React from "react";
-import { Button, Flex, Text, Box, Stack, Heading } from "@chakra-ui/react";
-import { useWizard } from "react-use-wizard";
+import React from 'react'
+import {Button, Flex, Text, Box, Stack, Heading} from '@chakra-ui/react'
+import {useWizard} from 'react-use-wizard'
 
 interface PreregisterProps {
-  lab: any;
+  lab: any
 }
 
-const Confirmation = ({ lab }: PreregisterProps) => {
-  const { previousStep } = useWizard();
+const Confirmation = ({lab}: PreregisterProps) => {
+  const {previousStep} = useWizard()
 
   return (
     <Box>
       <Flex paddingX="20px">
-        <Flex
-          direction="column"
-          width="100%"
-          justify="space-between"
-          spacing={4}
-        >
+        <Flex direction="column" width="100%" justify="space-between" spacing={4}>
           <Box marginY="20px">
             <Heading fontSize="13pt">Lab has been notified via SMS</Heading>
           </Box>
@@ -31,20 +26,14 @@ const Confirmation = ({ lab }: PreregisterProps) => {
               {lab.city}, {lab.provinceOrState}
             </Text>
             <Text fontSize="13pt">{lab.postalOrZip}</Text>
-            <Button
-              marginTop="20px"
-              maxW="100vw"
-              onClick={() => previousStep()}
-              bgColor="#B4C7E7"
-              color="gray.700"
-            >
+            <Button marginTop="20px" maxW="100vw" onClick={() => previousStep()} bgColor="#B4C7E7" color="gray.700">
               Close
             </Button>
           </Stack>
         </Flex>
       </Flex>
     </Box>
-  );
-};
+  )
+}
 
-export default Confirmation;
+export default Confirmation

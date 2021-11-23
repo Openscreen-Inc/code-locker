@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { Wizard } from "react-use-wizard";
-import Preregister from "./preRegistration";
-import Register from "./register";
-import PostObservationScreen from "../postObservation/screen";
+import React, {useState} from 'react'
+import {Wizard} from 'react-use-wizard'
+
+import Preregister from './preRegistration'
+import Register from './register'
+import PostObservationScreen from '../postObservation/screen'
 
 interface RegisterProps {
-  bag: any;
+  bag: any
 }
 
-const RegisterScreen = ({ bag }: RegisterProps): JSX.Element => {
-  const [currentBagData, setCurrentBagData] = useState({});
+const RegisterScreen = ({bag}: RegisterProps): JSX.Element => {
+  const [currentBagData, setCurrentBagData] = useState({})
 
   const setBag = (bag: any) => {
-    setCurrentBagData(bag);
-  };
+    setCurrentBagData(bag)
+  }
 
   return (
     <>
@@ -23,7 +24,7 @@ const RegisterScreen = ({ bag }: RegisterProps): JSX.Element => {
         <PostObservationScreen bag={currentBagData} />
       </Wizard>
     </>
-  );
-};
+  )
+}
 
-export default RegisterScreen;
+export default RegisterScreen

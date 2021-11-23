@@ -1,17 +1,18 @@
-import React from "react";
-import { Stack, Text, Flex } from "@chakra-ui/react";
-import Completed from "./completed";
+import React from 'react'
+import {Stack, Text, Flex} from '@chakra-ui/react'
+
+import Completed from './completed'
 
 interface RegisterProps {
-  bag: any;
+  bag: any
 }
 
-const CompletedScreen = ({ bag }: RegisterProps): JSX.Element => {
+const CompletedScreen = ({bag}: RegisterProps): JSX.Element => {
   return (
     <>
       <Completed />
     </>
-  );
-};
+  )
+}
 
-export default CompletedScreen;
+export default CompletedScreen

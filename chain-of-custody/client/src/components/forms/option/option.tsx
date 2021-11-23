@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 
 interface OptionProps {
-  value: Object;
-  children: any;
+  value: Object
+  children: any
 }
 
-const Option = ({ value, children }: OptionProps) => {
-  return <option value={JSON.stringify(value)}> {children} </option>;
-};
+const Option = ({value, children}: OptionProps) => {
+  return <option value={JSON.stringify(value)}> {children} </option>
+}
 
-export default Option;
+export default Option

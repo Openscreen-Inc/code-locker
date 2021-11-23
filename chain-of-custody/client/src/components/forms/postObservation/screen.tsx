@@ -1,27 +1,28 @@
-import React, { useState } from "react";
-import { Wizard } from "react-use-wizard";
-import Confirmation from "./confirmation";
-import PostObservation from "./postObservation";
+import React, {useState} from 'react'
+import {Wizard} from 'react-use-wizard'
+
+import Confirmation from './confirmation'
+import PostObservation from './postObservation'
 
 interface RegisterProps {
-  bag?: any;
+  bag?: any
 }
 
-const PostObservationScreen = ({ bag }: RegisterProps) => {
-  const [labAddress, setLabAddress] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
+const PostObservationScreen = ({bag}: RegisterProps) => {
+  const [labAddress, setLabAddress] = useState(null)
+  const [submitted, setSubmitted] = useState(false)
 
-  console.log(bag);
+  console.log(bag)
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {}, [])
 
   const setLab = (lab: any) => {
-    setLabAddress(lab);
-  };
+    setLabAddress(lab)
+  }
 
   const setSub = () => {
-    setSubmitted(true);
-  };
+    setSubmitted(true)
+  }
 
   return (
     <>
@@ -36,7 +37,7 @@ const PostObservationScreen = ({ bag }: RegisterProps) => {
         <Confirmation lab={labAddress} />
       </Wizard>
     </>
-  );
-};
+  )
+}
 
-export default PostObservationScreen;
+export default PostObservationScreen
