@@ -4,12 +4,20 @@
   "private": true,
   "description": "Openscreen Personalized Direct Mail Demo Frontend",
   "homepage": "https://github.com/Openscreen-Inc/code-locker",
+  "bugs": {
+    "url": "https://github.com/Openscreen-Inc/code-locker/issues",
+    "email": "anis.merchant@openscreen.com"
+  },
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "author": {
+    "name": "Anis Merchant",
+    "email": "anis.merchant@openscreen.com"
   },
   "browserslist": {
     "production": [">0.2%", "not dead", "not op_mini all"],

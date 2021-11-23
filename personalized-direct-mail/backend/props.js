@@ -2,7 +2,7 @@
 const intentFlow = {
   intentType: 'DYNAMIC_REDIRECT_TO_APP',
   intent: `${process.env.NGROK_URL}`,
-};
+}
 
 //----------------------------------------------------------- uploaded contact request object body --
 function generateContactObj(json) {
@@ -26,9 +26,9 @@ function generateContactObj(json) {
     customAttributes: {
       id: json.id,
     },
-  };
+  }
 
-  return createContact;
+  return createContact
 }
 
-module.exports = { intentFlow, generateContactObj };
+module.exports = {intentFlow, generateContactObj}

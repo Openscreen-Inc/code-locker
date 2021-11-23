@@ -1,23 +1,25 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import ChildContactForm from "./contactForm";
-import axios from "axios";
-import { Flex, Spinner, Center } from "@chakra-ui/react";
+import React from 'react'
+import {useParams} from 'react-router-dom'
+import axios from 'axios'
+import {Flex, Spinner, Center} from '@chakra-ui/react'
+
+import ChildContactForm from './contactForm'
+
 const ContactForm = () => {
-  const { scanId } = useParams();
-  const [defaultValues, setDefaultValues] = React.useState(null);
+  const {scanId} = useParams()
+  const [defaultValues, setDefaultValues] = React.useState(null)
 
   React.useEffect(() => {
     axios
       .get(`/scan/${scanId}`)
       .then((res) => {
-        console.log(res.data.contact);
-        setDefaultValues(res.data.contact);
+        console.log(res.data.contact)
+        setDefaultValues(res.data.contact)
       })
       .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+        console.log(e)
+      })
+  }, [])
 
   return (
     <>
@@ -31,7 +33,7 @@ const ContactForm = () => {
         </Flex>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ContactForm;
+export default ContactForm

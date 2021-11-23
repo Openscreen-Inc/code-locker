@@ -3,8 +3,20 @@
   "version": "1.0.0",
   "description": "Openscreen Personalized Direct Mail Demo Backend",
   "homepage": "https://github.com/Openscreen-Inc/code-locker",
+  "bugs": {
+    "url": "https://github.com/Openscreen-Inc/code-locker/issues",
+    "email": "anis.merchant@openscreen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Openscreen-Inc/code-locker",
+    "directory": "personalized-direct-mail/backend"
+  },
   "license": "MIT",
-  "author": "",
+  "author": {
+    "name": "Anis Merchant",
+    "email": "anis.merchant@openscreen.com"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

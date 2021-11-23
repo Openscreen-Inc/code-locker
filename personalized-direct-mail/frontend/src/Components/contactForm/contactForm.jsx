@@ -1,37 +1,27 @@
-import React from "react";
-import {
-  Box,
-  Radio,
-  Input,
-  RadioGroup,
-  Stack,
-  Button,
-  Heading,
-  useToast,
-  Text,
-} from "@chakra-ui/react";
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import { FormControl, FormLabel } from "@chakra-ui/react";
+import React from 'react'
+import {Box, Radio, Input, RadioGroup, Stack, Button, Heading, useToast, Text} from '@chakra-ui/react'
+import axios from 'axios'
+import {useForm} from 'react-hook-form'
+import {FormControl, FormLabel} from '@chakra-ui/react'
+
 const ChildContactForm = (props) => {
-  const { defaultValues } = props;
+  const {defaultValues} = props
 
-  console.log(defaultValues);
-  const toast = useToast();
-  const [value, setValue] = React.useState("");
-  const [submitted, setSubmitted] = React.useState(false);
+  const toast = useToast()
+  const [value, setValue] = React.useState('')
+  const [submitted, setSubmitted] = React.useState(false)
 
-  const { register, handleSubmit } = useForm({
+  const {register, handleSubmit} = useForm({
     defaultValues: {
       address: defaultValues.mailingAddress.address,
       provinceOrState: defaultValues.mailingAddress.provinceOrState,
       country: defaultValues.mailingAddress.country,
       postalOrZip: defaultValues.mailingAddress.postalOrZip,
     },
-  });
+  })
 
   const submit = async (data) => {
-    const val = JSON.parse(value);
+    const val = JSON.parse(value)
     const formattedData = {
       address: data.address,
       provinceOrState: data.provinceOrState,
@@ -42,32 +32,23 @@ const ChildContactForm = (props) => {
       emailAddress: data.emailAddress,
       cellPhone: data.cellPhone,
       ...val,
-    };
+    }
     try {
-      await axios.post(
-        `/update`,
-        formattedData
-      );
+      await axios.post(`/update`, formattedData)
       toast({
-        title: "Updated Contact",
-        status: "success",
-        position: "top",
+        title: 'Updated Contact',
+        status: 'success',
+        position: 'top',
         duration: 3000,
         isClosable: true,
-      });
-      setSubmitted(true);
+      })
+      setSubmitted(true)
     } catch (error) {}
-  };
+  }
 
   return (
     <Box w="100%" paddingY="30px" bgColor="gray.700">
-      <Box
-        display={submitted ? "none" : "block"}
-        textColor="white"
-        maxW="700px"
-        marginBottom="60px"
-        marginX="auto"
-      >
+      <Box display={submitted ? 'none' : 'block'} textColor="white" maxW="700px" marginBottom="60px" marginX="auto">
         <form action="submit" onSubmit={handleSubmit(submit)}>
           <Heading marginBottom="30px">Real Estate Contact Form</Heading>
           <FormControl marginY="10px" id="First Name" isRequired>
@@ -78,7 +59,7 @@ const ChildContactForm = (props) => {
               borderColor="gray.300"
               border="1px"
               height="50px"
-              {...register("firstName")}
+              {...register('firstName')}
               type="text"
               placeholder="First Name"
             />
@@ -91,7 +72,7 @@ const ChildContactForm = (props) => {
               borderColor="gray.100"
               border="1px"
               height="50px"
-              {...register("lastName")}
+              {...register('lastName')}
               type="text"
               placeholder="Last Name"
             />
@@ -104,7 +85,7 @@ const ChildContactForm = (props) => {
               borderColor="gray.300"
               border="1px"
               height="50px"
-              {...register("emailAddress")}
+              {...register('emailAddress')}
               type="text"
               placeholder="Email"
             />
@@ -119,7 +100,7 @@ const ChildContactForm = (props) => {
               border="1px"
               height="50px"
               isReadOnly
-              {...register("address")}
+              {...register('address')}
               type="text"
               placeholder="Address"
             />
@@ -134,7 +115,7 @@ const ChildContactForm = (props) => {
               borderColor="gray.300"
               border="1px"
               height="50px"
-              {...register("provinceOrState")}
+              {...register('provinceOrState')}
               type="text"
               placeholder="Province or State"
             />
@@ -149,7 +130,7 @@ const ChildContactForm = (props) => {
               borderColor="gray.300"
               border="1px"
               height="50px"
-              {...register("postalOrZip")}
+              {...register('postalOrZip')}
               type="text"
               placeholder="Postal Or Zip"
             />
@@ -164,7 +145,7 @@ const ChildContactForm = (props) => {
               borderColor="gray.300"
               border="1px"
               height="50px"
-              {...register("country")}
+              {...register('country')}
               type="text"
               placeholder="Country"
             />
@@ -177,15 +158,15 @@ const ChildContactForm = (props) => {
               borderColor="gray.300"
               border="1px"
               height="50px"
-              {...register("cellPhone")}
+              {...register('cellPhone')}
               type="text"
               placeholder="Phone Number"
             />
           </FormControl>
           <RadioGroup onChange={setValue} value={value}>
             <Stack direction="row">
-              <Radio value={JSON.stringify({ consent: true })}>Accepted</Radio>
-              <Radio value={JSON.stringify({ consent: false })}>Revoked</Radio>
+              <Radio value={JSON.stringify({consent: true})}>Accepted</Radio>
+              <Radio value={JSON.stringify({consent: false})}>Revoked</Radio>
             </Stack>
           </RadioGroup>
           <Stack>
@@ -195,12 +176,12 @@ const ChildContactForm = (props) => {
           </Stack>
         </form>
       </Box>
-      <Box display={submitted ? "block" : "none"}>
+      <Box display={submitted ? 'block' : 'none'}>
         <Heading color="white">Thank You!</Heading>
         <Text color="white">Your data has been submitted</Text>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default ChildContactForm;
+export default ChildContactForm

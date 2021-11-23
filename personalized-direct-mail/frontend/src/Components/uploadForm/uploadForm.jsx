@@ -1,92 +1,80 @@
-import React, { useState, useCallback, useMemo } from "react";
-import { useDropzone } from "react-dropzone";
-import { Box, Button, Heading, Text, Flex, useToast } from "@chakra-ui/react";
-import CsvDownload from "react-json-to-csv";
-import axios from "axios";
+import React, {useState, useCallback, useMemo} from 'react'
+import {useDropzone} from 'react-dropzone'
+import {Box, Button, Heading, Text, Flex, useToast} from '@chakra-ui/react'
+import CsvDownload from 'react-json-to-csv'
+import axios from 'axios'
 
 const UploadForm = () => {
-  const [csv, setCsv] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [jsonData, setJsonData] = useState(null);
-  const toast = useToast();
+  const [csv, setCsv] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [jsonData, setJsonData] = useState(null)
+  const toast = useToast()
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const formData = new FormData();
-    formData.append("csv", csv);
-    setLoading(true);
+    const formData = new FormData()
+    formData.append('csv', csv)
+    setLoading(true)
     try {
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
-      };
-      const res = await axios.post(
-        `/uploads`,
-        formData,
-        config
-      );
-      setJsonData(res.data.qrCodes);
+      }
+      const res = await axios.post(`/uploads`, formData, config)
+      setJsonData(res.data.qrCodes)
       toast({
-        title: "QR Codes generated",
-        status: "success",
+        title: 'QR Codes generated',
+        status: 'success',
         duration: 3000,
         isClosable: true,
-      });
-      setLoading(false);
+      })
+      setLoading(false)
     } catch (error) {
-      console.log(error);
-      setLoading(false);
+      console.log(error)
+      setLoading(false)
     }
-    console.log(csv);
-  };
+    console.log(csv)
+  }
 
   const onDrop = useCallback((acceptedFiles) => {
-    setCsv(acceptedFiles[0]);
-  }, []);
+    setCsv(acceptedFiles[0])
+  }, [])
 
   const baseStyle = {
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "75px",
-    minHeight: "150px",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '75px',
+    minHeight: '150px',
     borderWidth: 2,
     borderRadius: 2,
-    borderColor: "#2196f3",
-    borderStyle: "dashed",
-    backgroundColor: "#fafafa",
-    color: "#bdbdbd",
-    outline: "none",
-    transition: "border .24s ease-in-out",
-  };
+    borderColor: '#2196f3',
+    borderStyle: 'dashed',
+    backgroundColor: '#fafafa',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out',
+  }
 
   const activeStyle = {
-    borderColor: "#2196f3",
-  };
+    borderColor: '#2196f3',
+  }
 
   const acceptStyle = {
-    borderColor: "#00e676",
-  };
+    borderColor: '#00e676',
+  }
 
   const rejectStyle = {
-    borderColor: "#ff1744",
-  };
+    borderColor: '#ff1744',
+  }
 
-  const {
-    acceptedFiles,
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
+  const {acceptedFiles, getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject} = useDropzone({
     onDrop,
-    accept:
-      ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel",
-  });
+    accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel',
+  })
 
   const style = useMemo(
     () => ({
@@ -96,25 +84,25 @@ const UploadForm = () => {
       ...(isDragReject ? rejectStyle : {}),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isDragActive, isDragReject, isDragAccept]
-  );
+    [isDragActive, isDragReject, isDragAccept],
+  )
 
   const acceptedFileItems = acceptedFiles.map((file) => (
     <li key={file.path}>
       {file.path} - {file.size} bytes
     </li>
-  ));
+  ))
 
   return (
-    <Box maxW='1200px' margin='auto'>
-      <Box margin='auto' maxW='1000px'>
-        <Heading marginTop='10px' marginBottom='40px' color='black'>
+    <Box maxW="1200px" margin="auto">
+      <Box margin="auto" maxW="1000px">
+        <Heading marginTop="10px" marginBottom="40px" color="black">
           Direct Mail App
         </Heading>
         <Text>Upload CSV File</Text>
-        <form action='submit' onSubmit={onSubmit}>
-          <div className='dragndrop' {...getRootProps({ style })}>
-            <input name='csv' {...getInputProps()} />
+        <form action="submit" onSubmit={onSubmit}>
+          <div className="dragndrop" {...getRootProps({style})}>
+            <input name="csv" {...getInputProps()} />
             {isDragActive ? (
               <p>Drop the files here ...</p>
             ) : (
@@ -128,14 +116,14 @@ const UploadForm = () => {
             <h4>Your uploaded files</h4>
             <ul>{acceptedFileItems}</ul>
           </aside>
-          <Flex align='center'>
-            <Button isLoading={loading} marginY='10px' type='submit'>
+          <Flex align="center">
+            <Button isLoading={loading} marginY="10px" type="submit">
               Submit
             </Button>
-            <Box marginX='10px' display={jsonData ? 'block' : 'none'}>
+            <Box marginX="10px" display={jsonData ? 'block' : 'none'}>
               <CsvDownload
                 data={jsonData}
-                filename='os_qr_codes.csv'
+                filename="os_qr_codes.csv"
                 style={{
                   backgroundColor: '#E2E8F0',
                   borderRadius: '6px',
@@ -155,7 +143,7 @@ const UploadForm = () => {
         </form>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default UploadForm;
+export default UploadForm
