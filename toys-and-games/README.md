@@ -1,3 +1,5 @@
+# Openscreen Toys and Games
+
 ## About
 
 This web-based reference app built with ReactJS and Express demonstrates how to leverage  [Openscreen](https://www.openscreen.com)  and  [Openscreen's Node.js SDK](https://www.docs.openscreen.com) to create a trivia game application using QR codes. This app reference is a good starting point for seeing how an Openscreen application can be built.
@@ -11,28 +13,28 @@ This sample app provides an example of how to use a QR Code scan counter to cycl
 Here’s an example of the workflow:
 * The game maker will create a website with a set of URLs that scan to various questions corresponding to the scan counter
 * The game maker will use Openscreen to:
-    * Create a QR Code that is tied to that question 
-    * Direct the QR scan to the game URL
-    * Pass scan counter data to the game to determine which question is shown
+  * Create a QR Code that is tied to that question
+  * Direct the QR scan to the game URL
+  * Pass scan counter data to the game to determine which question is shown
 
 ### Technology stack
 
--   [React](https://reactjs.org/)
--   [Chakra UI](https://chakra-ui.com/)
--   [Express](https://expressjs.com/)
+* [React](https://reactjs.org/)
+* [Chakra UI](https://chakra-ui.com/)
+* [Express](https://expressjs.com/)
 
 ## Features
 
--   Create dynamic QR Codes with Assets that store a library of trivia questions.
--   Create an interactive gaming application through the use of dynamic QR Codes.
--   Receive new trivia questions from a QR Code each time it is scanned. 
+* Create dynamic QR Codes with Assets that store a library of trivia questions.
+* interactive gaming application through the use of dynamic QR Codes.
+* Receive new trivia questions from a QR Code each time it is scanned. 
 
 ## Setup
 
 ### Requirements
 
--   [Node.js v10+](https://nodejs.org/en/download/)
--   NPM v6+ (comes installed with newer Node versions)
+* [Node.js v10+](https://nodejs.org/en/download/)
+* NPM v6+ (comes installed with newer Node versions)
 
 ### Openscreen Account Settings
 
@@ -58,7 +60,7 @@ Openscreen Project Id: You can find one once you have created a project on the  
 
 This application uses Openscreen credentials to create and modify your Openscreen contacts, assets, and tokens (i.e. unique QR codes with state that redirect to your app). Create a  `.env` file and add the following parameters:
 
-```
+```bash
 OPENSCREEN_KEY="XXXXXXX-XXXXXXXX"
 OPENSCREEN_SECRET="XXXXXXXXX-XXXXXXXX"
 NGROK_URL="https://YOUR_APP.ngrok.io" // you will change this in the next step

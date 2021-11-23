@@ -1,9 +1,24 @@
 {
-  "name": "codelocker-realestate-app",
+  "name": "openscreen-toys-and-games-demo-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Openscreen Toys and Games Demo Server",
+  "keywords": ["Openscreen", "qrcode", "QR"],
+  "homepage": "https://github.com/Openscreen-Inc/code-locker",
+  "bugs": {
+    "url": "https://github.com/Openscreen-Inc/code-locker/issues",
+    "email": "dev@openscreen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Openscreen-Inc/code-locker",
+    "directory": "toys-and-games/backend"
+  },
   "license": "MIT",
-  "author": "",
+  "author": {
+    "name": "openscreen-com",
+    "email": "dev@openscreen.com",
+    "url": "https://github.com/openscreen-com"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

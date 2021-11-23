@@ -6,7 +6,7 @@
   "homepage": "https://github.com/Openscreen-Inc/code-locker",
   "bugs": {
     "url": "https://github.com/Openscreen-Inc/code-locker/issues",
-    "email": "dev@openscreen.com"
+    "email": "marc.bouchard@openscreen.com"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "author": {
-    "name": "marc-openscreen",
+    "name": "Marc Bouchard",
     "email": "marc.bouchard@openscreen.com",
     "url": "https://github.com/marc-openscreen"
   },
