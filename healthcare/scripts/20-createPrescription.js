@@ -1,43 +1,41 @@
 const fs = require('fs').promises
+const {QrCodeIntentType} = require('@openscreen/sdk')
 const PrescriptionStates = require('../common/PrescriptionStates')
-const QrCodeRole = require('../common/ContactRoles')
-const context = require('./context')
+const ContactRoles = require('../common/ContactRoles')
+const context = require('./00-context')
+
+const {APPLICATION_URL, PROJECT_ID} = process.env
 
 module.exports = async () => {
 
   const prescriptionPdf = await fs.readFile('prescription.pdf');
-  const pdf = new Buffer(prescriptionPdf).toString('base64');
+  // const pdf = new Buffer(prescriptionPdf).toString('base64');
+  const pdf = 'pdf shit here'
 
+  const {os, osProject, patient} = context
 
-  const {osProject, patientCodeTemplateId, pharmacistCodeTemplateId} = context
-  const osAssets = osProject.assets()
-
-
-  const prescription = await osAssets.create({
+  const response = await os.project(PROJECT_ID).assets().create({
     name: 'Prescription',
     description: `Prescription for ${patient.firstName} ${patient.lastName}`,
     customAttributes: {
       state: PrescriptionStates.PRESCRIPTION_CREATED,
       pdf,
-      patientCodeTemplateId,
-      pharmacistCodeTemplateId,
     },
     qrCodes: [{
       intentType: QrCodeIntentType.DYNAMIC_REDIRECT_TO_APP,
       intent: `${APPLICATION_URL}/patient`,
-      customAttributes: {role: QrCodeRole.PATIENT,}
+      intentState: {type: ContactRoles.PATIENT}
     },{
       intentType: QrCodeIntentType.DYNAMIC_REDIRECT_TO_APP,
       intent: `${APPLICATION_URL}/pharmacist`,
-      customAttributes: {role: QrCodeRole.PHARMACIST,}
+      intentState: {type: ContactRoles.PHARMACIST}
     }]
-  }).asset
-  console.info(`Prescription: `, JSON.stringify(prescription, ' ', 2))
+  })
+  const prescription = response.asset
 
 
-  context.assign({
-    osAssets,
-    osPrescription: os.asset(prescription.assetid),
+  Object.assign(context, {
+    osPrescription: os.asset(prescription.assetId),
   })
 }
 

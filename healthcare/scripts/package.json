@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openscreen/sdk": "^0.4.1",
     "@types/node": "^16.11.7",
     "dotenv": "^10.0.0"
   }
