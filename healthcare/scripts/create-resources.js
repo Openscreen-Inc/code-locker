@@ -12,51 +12,56 @@ const uniquePhone = (root) => {
   return root + `00000${Math.floor(Math.random() * 1000000)}`.substr(-6)
 }
 
-const uniqueEmail = (root, domain) => {
-  return root + `0000000${Math.floor(Math.random() * 100000000)}`.substr(-8) + '@' + domain
-}
-
 const storage = new Configstore('openscreen')
 const os = new Openscreen().config({key: OS_KEY, secret: OS_SECRET, environment: OS_ENV, storage})
 
 const doctor = {
   firstName: 'Doctor',
-  emailAddress: uniqueEmail('Dr', 'mailinator.com'),
-  cellPhone: uniquePhone('+16472'), // EDIT THIS
+  phone: '+14167036737', // EDIT THIS
   type: ContactRoles.DOCTOR,
 }
 
 const patient = {
   firstName: 'Bertrand',
   lastName: 'L',
-  emailAddress: uniqueEmail('Patient', 'mailinator.com'),
-  cellPhone: uniquePhone('+14163'), // EDIT THIS
+  phone: '+16478984040', // uniquePhone('+14163'), // EDIT THIS
   type: ContactRoles.PATIENT,
 }
 
 const pharmacist1 = {
   firstName: 'Pharmacist 1',
-  emailAddress: uniqueEmail('Pharmacist1', 'mailinator.com'),
-  cellPhone: uniquePhone('+14164'), // EDIT THIS
+  phone: '+12894898494', // EDIT THIS
   type: ContactRoles.PHARMACIST,
 }
 
 const pharmacist2 = {
   firstName: 'Pharmacist 2',
-  emailAddress: uniqueEmail('Pharmacist2', 'mailinator.com'),
-  cellPhone: uniquePhone('+16475'), // EDIT THIS
+  phone: '+12894898595', // EDIT THIS
   type: ContactRoles.PHARMACIST,
 }
 
 const pharmacist3 = {
   firstName: 'Pharmacist 3',
-  emailAddress: uniqueEmail('Pharmacist3', 'mailinator.com'),
-  cellPhone: uniquePhone('+16476'), // EDIT THIS
+  phone: '+12894898696', // EDIT THIS
   type: ContactRoles.PHARMACIST,
 }
 
-const createResources = async () => {
+const createOrLinkContact = async (assetId, fields) => {
+  // DOES THIS CONTACT ALREADY EXIST?
+  const {contacts} = await os.project(PROJECT_ID).contacts().get({phone: fields.phone})
+  const contact = contacts[0]
+  if (contact) {
+    // CONTACT ALREADY EXISTS, RE-LINK TO ASSET AND UPDATE
+    const {contactId, firstName} = contact
+    await os.asset(assetId).contact(contactId).link(fields.type)
+    await os.contact(contact.contactId).update({firstName})
+  } else {
+    // CREATE CONTACT ASSOCIATED WITH ASSET
+    await os.asset(assetId).contacts().create(fields)
+  }
+}
 
+const createResources = async () => {
   let response
   const projectSmsTemplates = os.project(PROJECT_ID).smsTemplates()
 
@@ -70,9 +75,8 @@ const createResources = async () => {
     smsTemplateName: "pharmacistCode",
   })
 
-  const prescriptionPdf = await fs.readFile('prescription.pdf');
-  // const pdf = new Buffer(prescriptionPdf).toString('base64');
-  const pdf = 'this is a pdf'
+  const prescriptionPdf = await fs.readFile('rx.jpeg');
+  const pdf = new Buffer(prescriptionPdf).toString('base64');
 
   response = await os.project(PROJECT_ID).assets().create({
     name: 'Prescription',
@@ -93,15 +97,14 @@ const createResources = async () => {
   })
 
   const prescription = response.asset
-  const assetContacts = os.asset(prescription.assetId).contacts()
+  const {assetId} = prescription
+  await createOrLinkContact(assetId, doctor)
+  await createOrLinkContact(assetId, patient)
+  await createOrLinkContact(assetId, pharmacist1)
+  await createOrLinkContact(assetId, pharmacist2)
+  await createOrLinkContact(assetId, pharmacist3)
 
-  await assetContacts.create(doctor)
-  await assetContacts.create(patient)
-  await assetContacts.create(pharmacist1)
-  await assetContacts.create(pharmacist2)
-  await assetContacts.create(pharmacist3)
-
-  response = await os.asset(prescription.assetId).qrCodes().get({
+  response = await os.asset(assetId).qrCodes().get({
     format: 'png',
     width: 300,
     dataUrl: false,
@@ -112,6 +115,5 @@ const createResources = async () => {
   Promise.all(qrCodes.map(qrCode => os.saveQrImageDataToFile(qrCode)))
 }
 
-module.exports = {
-  createResources
-}
+module.exports = createResources
+

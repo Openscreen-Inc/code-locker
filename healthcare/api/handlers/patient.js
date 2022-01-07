@@ -1,6 +1,6 @@
 const PrescriptionStates = require('../../common/PrescriptionStates')
 const ContactRoles = require('../../common/ContactRoles')
-const response = require('../../common/response')
+const response = require('./response')
 const {Openscreen} = require('@openscreen/sdk')
 const {OS_KEY, OS_SECRET} = process.env
 
@@ -9,26 +9,22 @@ modules.exports = new Openscreen().config({
   secret: process.env.OS_SECRET,
 })
 
-/**
- *
- * @param event
- * @returns {Promise<{headers: {"Access-Control-Allow-Origin": string, "Access-Control-Allow-Credentials": boolean}, body: string, statusCode: number}>}
- *
+/***
  * GET /patient/pppppppp-pppp-pppp-pppp-pppppppppppp
- *    RESPONSE
- *    {
- *      state: 'WAITING-FOR-PATIENT-CODE'
- *    }
  */
 const getPatientByScanId = async (event) => {
-  const scan = await os.scan(event.pathParameters.scanId).get()
-  const osAsset = os.asset(scan.assetId)
-  const prescription = await osAsset.get()
-  const {customAttributes} = asset
+  // GET THE SCAN INFORMATION
+  const {scanId} = event.pathParameters
+  const response = await os.scan(scanId).get()
+  const {scan, asset: prescription, qrCode, contacts} = response
+
+  // WE STORE OUR PRESCRIPTION DATA IN THE CUSTOM ATTRIBUTES
+  // CHECK THE STATE OF THE PRESCRIPTION
+  const {customAttributes} = prescription
   if (customAttributes.state !== PrescriptionStates.PRESCRIPTION_CREATED &&
     customAttributes.state !== PrescriptionStates.WAITING_FOR_PATIENT_CONFIRMATION_CODE)
   {
-    throw Error(`Prescription is in process`)
+    throw Error(`Can't `)
   }
 
   const patient = await os.asset(scan.assetId).contacts().get().filter(p => p.type === ContactRoles.PATIENT)
@@ -43,22 +39,25 @@ const getPatientByScanId = async (event) => {
     code: `000${Math.floor(Math.random() * 10000)}`.substr(-4),
   })
   await osAsset.update({customAttributes})
-
   return response({
 
   })
 }
 
+/***
+ * PATCH /patient/pppppppp-pppp-pppp-pppp-pppppppppppp
+ */
 const updatePatientByScanId = async (event) => {
   const {scanId} = event.pathParameters
-
-  return {
-    statusCode: 201,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
+  const response = await os.scan(scanId).get()
+  const {scan, asset: prescription, qrCode, contacts} = response
+  const {customAttributes} = prescription
+  if (customAttributes.state !== PrescriptionStates.WAITING_FOR_PATIENT_CONFIRMATION_CODE) {
+    throw Error(`Not waiting for patient confirmation code`)
   }
+    const {code} = event.body
+
+  return response()
 }
 
 module.exports = {getPatientByScanId, updatePatientByScanId}

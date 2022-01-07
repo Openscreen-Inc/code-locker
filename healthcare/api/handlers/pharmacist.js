@@ -1,3 +1,6 @@
+const PrescriptionStates = require('../../common/PrescriptionStates')
+const ContactRoles = require('../../common/ContactRoles')
+const response = require('./response')
 const {Openscreen} = require('@openscreen/sdk')
 const {OS_KEY, OS_SECRET} = process.env
 
@@ -6,63 +9,20 @@ modules.exports = new Openscreen().config({
   secret: process.env.OS_SECRET,
 })
 
-const getScan = async (event) => {
-  const { id } = event.pathParameters;
+/***
+ * GET /pharmacist/pppppppp-pppp-pppp-pppp-pppppppppppp
+ */
+const getPharmacistByScanId = async (event) => {
+  const {scanId} = event.pathParameters
+  return response()
+}
 
-  const scan = await os.scan(id).get();
+/***
+ * PATCH /pharmacist/pppppppp-pppp-pppp-pppp-pppppppppppp
+ */
+const updatePharmacistByScanId = async (event) => {
+  const {scanId} = event.pathParameters
+  return response()
+}
 
-  const asset = {
-    ...scan
-  };
-
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
-    body: JSON.stringify({
-      ...asset,
-    }),
-  };
-};
-
-const updateAsset = async (event) => {
-  const { id } = event.pathParameters
-
-  const newCustomAttributes = JSON.parse(event.body);
-
-  await os.asset(id).update({
-    customAttributes: {
-      ...newCustomAttributes,
-    },
-  });
-
-  return {
-    statusCode: 201,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
-  };
-};
-
-const getAssetsByBatch = async (event) => {
-  const { batchId } = event.pathParameters;
-
-  const { assets } = await os.project(process.env.PROJECT_ID).assets().get();
-  const filtered = assets.filter(asset => asset.customAttributes.batchId === batchId)
-
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
-    body: JSON.stringify({
-      filtered,
-    }),
-  };
-};
-
-module.exports = { getAssetsByBatch, getScan, updateAsset };
+module.exports = {getPharmacistByScanId, updatePharmacistByScanId}

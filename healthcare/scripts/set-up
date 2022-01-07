@@ -1,12 +1,8 @@
 #!/usr/bin/env node
 require = require('esm')(module)
-const {createResources} = require('./create-resources')
+const createResources = require('./create-resources')
 
-const main = async () => {
-  return  createResources()
-}
-
-main().catch(err => {
+createResources().catch(err => {
   if (err.entityType === 'entity.response') {
     console.error(JSON.stringify(err, ' ', 2))
   } else {

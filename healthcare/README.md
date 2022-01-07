@@ -1,27 +1,21 @@
 
 ## About
 
-This web-based reference app built in ReactJS and Serverless demonstrates how to leverage  [Openscreen](https://www.openscreen.com)  and  [Openscreen's Node.js SDK](https://www.docs.openscreen.com)  to create a chain of custody app using QR codes and SMS to transfer keep track of physical goods. This app reference is a good starting point for seeing how an Openscreen application can be built.
+This web-based reference app built in ReactJS and Serverless demonstrates how to leverage
+[Openscreen](https://www.openscreen.com) and 
+[Openscreen's Node.js SDK](https://www.docs.openscreen.com) to create a healthcare
+app that provides touchless prescriptions.
+ 
+Using QR codes and SMS, this app demonstrates a secure flow for a patient to
+receive a prescription and transfer it to a pharmacy without complicated forms, web interfaces,
+or physical touch.
 
-Access to the source code should help you understand how to use the Openscreen's Assets, QR Codes, Contacts and SMS templates to speed up your development.
+This app reference is a good starting point for seeing how an Openscreen application can be built.
+
+Access to the source code should help you understand how to use the Openscreen's Assets, 
+QR Codes, Contacts and SMS templates to speed up your development.
 
 ### How it works
-
-Keeping a ‘digital tab’ on physical goods as they move through a customer, product or other lifecycle can be critical, especially when stakeholders need to know the custodian of a specific item. Chain of custody applications help to make sure the right product, is in the right hands, and that there is an auditable trail of transfer of custody as physical items move from one owner to another.
-
-This sample app provides an example of how to use QR Codes to track the chain of custody for a sensitive item. It also shows how the state or context of the item can be reflected by the workflow triggered by the QR Code. In this example, unique QR Codes are placed on soil collection bags, used to collect soil which is sent to labs for quality and composition testing.  
-  
-The first time the QR Code is scanned, a chain of custody workflow is **_initiated_**  based on the scan counter going from zero to one. From there, scanning the QR Code will allow the owner to register or transfer custody as the soil sample moves from soil collector, to laboratory, to data management system.
-
-Here’s an example of the workflow:
-
--   The soil collection firm auto-generates a number of QR Codes to be placed on, and to correspond with unique soil sample bags.
--   The QR Code will be defined with an intent workflow that works as follows:
-
-	-   Upon the first scan of the QR, the soil collector can ‘register’ the sample as collected by entering field notes into the soil collection portal. Additional scan data such as time and location, are also captured and stored
-	-   Upon subsequent scans, as the original soil data has been collected and stored, only a custody transfer workflow will be undertaken. For example, after the sample is collected and sent to the lab, the lab technician can scan the QR Code. Openscreen, recognizing the scan count is > 1, will direct the scanner to a chain of custody registry, rather than to the soil collection portal.
-
-By tying QR Codes to items moving from place to place in a value chain lifecycle, systems can keep track not only of who the current custodian of the application is, but also of the provenance, or past chain of custody of the item.
 
 ### Technology stack
 
@@ -31,33 +25,28 @@ By tying QR Codes to items moving from place to place in a value chain lifecycle
 
 ## Features
 
--   Create Assets (Soil Bags) and QR Codes (Unique QR Codes with state that redirect to your app).
--   Confirm completed steps using Openscreen SMS templates.
--   Create contacts on Assets (Soil Bags).
--   Update app UI based on Scan information or Asset State.
--   Keep track of the chain of custody for a specific soild bag and the Contacts who have interacted with it.
-
 ## Setup
 
 ### Requirements
 
--   [Node.js v10+](https://nodejs.org/en/download/)
+-   [Node.js v14+](https://nodejs.org/en/download/)
 -   NPM v6+ (comes installed with newer Node versions)
 -   [Severless v2.64.1+](https://www.serverless.com/framework/docs/getting-started)
 
-### Openscreen Account Settings
+### Openscreen API Key
 
-Account Key
+You generate your API key using the [Openscreen Dashboard](https://www.app.openscreen.com).
+Check out the "let's get started with Openscreen" section on your Dashboard when you
+have your first account, or create a new account.
 
-Openscreen Account Key. This information can be found on the  [Openscreen Dashboard](https://www.app.openscreen.com)
+The key and secret are displayed in the API Key section of the dashboard.
+Be sure to save the Secret at the time that you generate it.
+You will not be able to view the secret again and if you forget it you 
+will need to regenerate the secret.
 
-Openscreen Secret
+#### Project Id
 
-Openscreen Secret. This information can be found on the  [Openscreen Dashboard](https://www.app.openscreen.com)
-
-Project Id
-
-An Openscreen Project Id. You can find one once you have created a project on  the  [Openscreen Dashboard](https://www.app.openscreen.com)
+You can find the project id once you have created a project on the [Openscreen Dashboard](https://www.app.openscreen.com)
 
 ### Local Development
 
@@ -65,20 +54,27 @@ An Openscreen Project Id. You can find one once you have created a project on  t
 
 `$ git clone git@github.com:openscreen-tv/code-locker.git`
 
-#### 2. Navigate to the Soil Bag App
+#### 2. Navigate to the App
 
-`$ cd soilBagApp`
+`$ cd healthcare`
 
-#### 3. Install Dependencies
+#### 3. Install Dependencies in all the sub-component directories:
 
-From the `code-locker/soilBagApp` directory run:
+From the `scripts` directory run:
+`$ npm install`
+
+From the `api` directory run:
+`$ npm install`
+
+From the `client` directory run:
 `$ npm install`
 
 This application uses Openscreen credentials to create and modify your Openscreen Assets, Contacts and QR Codes. Create a  `.env` file and add the following parameters:
 
 ```
-OPENSCREEN_KEY="XXXXXXX-XXXXXXXX"
-OPENSCREEN_SECRET="XXXXXXXXX-XXXXXXXX"
+OS_KEY="XXXXXXX-XXXXXXXX"
+OS_SECRET="XXXXXXXXX-XXXXXXXX"
+OS_DEBUG="REQUEST,RESPONSE,ERROR"
 PROJECT_ID="XXXXXXXXX"
 ```
 
@@ -95,11 +91,11 @@ Start an Ngrok tunnel on to your localhost:3000
 We'll need to save your current tunnel url and pass it into the QR Code that we create. You can do that by running:
 `$  npm run getTunnel`
 
-#### 5. Create Your Soil Bag and Contacts
+#### 5. Create a p
 
 With your Openscreen credentials setup in your `.env` file we can now create our first Soil Bag and QR Code.
 
-`$ node scripts/createSoilBags.js`
+`$ ./scripts/set-up
 
 Once this script runs you will see a created Asset object logged in your console, you will also see a created QR Code logged. This QR Code will be saved locally in the soilBagApp directory. Open the file and you will see your first QR code! (Keep this QR since we will need it later).
 
