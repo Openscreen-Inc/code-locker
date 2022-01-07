@@ -65,17 +65,19 @@ const createResources = async () => {
   let response
   const projectSmsTemplates = os.project(PROJECT_ID).smsTemplates()
 
+  // SMS TEMPLATE FOR MESSAGE SENT TO PATIENT
   await projectSmsTemplates.create({
     body: `Please enter the following code to access your prescription, issued by {asset.customAttributes.doctorName}: {asset.customAttributes.patientCode}`,
     smsTemplateName: "patientCode",
   })
 
+  // SMS TEMPLATE FOR MESSAGE SENT TO PHARMACIST
   await projectSmsTemplates.create({
     body: `Please enter the following code to access the prescription for {asset.customAttributes.patientName}: {asset.customAttributes.pharmacistCode}`,
     smsTemplateName: "pharmacistCode",
   })
 
-  const prescriptionPdf = await fs.readFile('rx.jpeg');
+  const prescriptionPdf = await fs.readFile('rx-sample.jpeg');
   const pdf = new Buffer(prescriptionPdf).toString('base64');
 
   response = await os.project(PROJECT_ID).assets().create({
