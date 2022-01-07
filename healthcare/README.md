@@ -91,35 +91,18 @@ Start an Ngrok tunnel on to your localhost:3000
 We'll need to save your current tunnel url and pass it into the QR Code that we create. You can do that by running:
 `$  npm run getTunnel`
 
-#### 5. Create a p
+#### 5. Create a Prescription
 
-With your Openscreen credentials setup in your `.env` file we can now create our first Soil Bag and QR Code.
+With your Openscreen credentials setup in your `.env` file we can now create our first 
+Prescription and the QR codes associated with that.
 
 `$ ./scripts/set-up
 
-Once this script runs you will see a created Asset object logged in your console, you will also see a created QR Code logged. This QR Code will be saved locally in the soilBagApp directory. Open the file and you will see your first QR code! (Keep this QR since we will need it later).
+Set-up create SMS templates used to send text messages to the patient and pharmacist and 
+adds the contact information of the various actors in the scenario.
 
-Now that our Asset and QR Code has been created, we will create the contacts needed to make our app work. We need the following Contacts for this use case:
-
-- Farmer
-	- The farmer who owns the land that the soild will be collected from
-- Agronomist
-	- The agronomist who will collect the soil sample from the field
-- Lab Technician
-	- The technician who will inspect the soil once it reaches the lab
-- Validator
-	- A carbon validator who will validate the carbon levels reported
-
-Run this script to create the above contacts in Openscreen:
- `$ node scripts/createContacts.js`
-
-#### 6. Create Your SMS Templates with a Script
-
-The next step is to add our SMS templates to our Project. SMS Templates can easily be used to send SMS messages and notifications to Contacts in your app:
-
-Run this script to add these templates to your project:
-
-`$ node backend/createSmsTemplates.js`
+It uploads a prescription document associated with the prescription and generates two QR codes,
+one for the patient, and the other for the pharmacist.
 
 #### 7. Start your backend
 
@@ -129,8 +112,5 @@ Run the following script to deploy your API:
 
 `$ sls deploy`
 
-#### 8. Scan your QR code
+#### 8. Test your app
 
-Your app is finally ready to use! Scan the QR code that you created before and start the chain of custody process. If you complete a step then scan the QR again, you will see that the app moved onto the next step of the process.
-
-You will receive SMS notifications for each step that is completed so make sure you use your real phone number when creating Contacts.
