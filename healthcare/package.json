@@ -16,5 +16,6 @@
   "bugs": {
     "url": "https://github.com/openscreen-inc/code-locker/health-care/issues"
   },
-  "homepage": "https://github.com/openscreen-inc/code-locker/health-care#readme"
+  "homepage": "https://github.com/openscreen-inc/code-locker/health-care#readme",
+  "dependencies": {}
 }

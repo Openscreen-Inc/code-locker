@@ -10,7 +10,7 @@ module.exports = async () => {
 
   const prescriptionPdf = await fs.readFile('prescription.pdf');
   // const pdf = new Buffer(prescriptionPdf).toString('base64');
-  const pdf = 'pdf shit here'
+  const pdf = 'this is a pdf'
 
   const {os, osProject, patient} = context
 
@@ -22,11 +22,11 @@ module.exports = async () => {
       pdf,
     },
     qrCodes: [{
-      intentType: QrCodeIntentType.DYNAMIC_REDIRECT_TO_APP,
+      intentType: QrCodeIntentType.STATIC_REDIRECT,
       intent: `${APPLICATION_URL}/patient`,
       intentState: {type: ContactRoles.PATIENT}
     },{
-      intentType: QrCodeIntentType.DYNAMIC_REDIRECT_TO_APP,
+      intentType: QrCodeIntentType.STATIC_REDIRECT,
       intent: `${APPLICATION_URL}/pharmacist`,
       intentState: {type: ContactRoles.PHARMACIST}
     }]

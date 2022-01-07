@@ -1,5 +1,8 @@
-module.export = {
-  DOCTOR: 'DOCTOR',
-  PATIENT: 'PATIENT',
-  PHARMACIST: 'PHARMACIST',
+module.exports = {
+
+  ContactRoles: {
+    DOCTOR: 'DOCTOR',
+    PATIENT: 'PATIENT',
+    PHARMACIST: 'PHARMACIST',
+  }
 }

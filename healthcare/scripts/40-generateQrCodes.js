@@ -12,6 +12,5 @@ module.exports = async () => {
     darkColor: '#0066AA'
   })
   const {qrCodes} = response
-  console.info(`QR Codes: `, JSON.stringify(qrCodes, ' ', 2))
   Promise.all(qrCodes.map(qrCode => os.saveQrImageDataToFile(qrCode)))
 }

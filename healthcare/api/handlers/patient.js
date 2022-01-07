@@ -1,4 +1,5 @@
 const PrescriptionStates = require('../../common/PrescriptionStates')
+const ContactRoles = require('../../common/ContactRoles')
 const response = require('../../common/response')
 const {Openscreen} = require('@openscreen/sdk')
 const {OS_KEY, OS_SECRET} = process.env
@@ -20,20 +21,32 @@ modules.exports = new Openscreen().config({
  *    }
  */
 const getPatientByScanId = async (event) => {
-  const {scanId} = event.pathParameters
-  const scan = await os.scan(scanId).get()
-  const assetId = scan.assetId
-  const prescription = await os.asset(assetId).get()
-  const contacts = await os.asset(assetId).contacts().get()
-  let {customAttributes} = asset
-  const {patient} = customAttributes
+  const scan = await os.scan(event.pathParameters.scanId).get()
+  const osAsset = os.asset(scan.assetId)
+  const prescription = await osAsset.get()
+  const {customAttributes} = asset
+  if (customAttributes.state !== PrescriptionStates.PRESCRIPTION_CREATED &&
+    customAttributes.state !== PrescriptionStates.WAITING_FOR_PATIENT_CONFIRMATION_CODE)
+  {
+    throw Error(`Prescription is in process`)
+  }
 
-  customAttributes.state = PrescriptionStates.WAITING_FOR_PATIENT_CONFIRMATION_CODE
-  // GENERATE A 4 DIGIT CODE. FOR DEMO PURPOSES ONLY. NOT SECURE.
-  customAttributes.code = `000${Math.floor(Math.random() * 10000)}`.substr(-4),
-  await os.asset(assetId).update({customAttributes})
+  const patient = await os.asset(scan.assetId).contacts().get().filter(p => p.type === ContactRoles.PATIENT)
 
-  return response(customAttributes)
+  if (!patient) {
+    throw Error(`No PATIENT type contact associated with prescription`)
+  }
+
+  customAttributes.assign({
+    state: PrescriptionStates.WAITING_FOR_PATIENT_CONFIRMATION_CODE,
+    // GENERATE A 4 DIGIT CODE. FOR DEMO PURPOSES ONLY. NOT SECURE.
+    code: `000${Math.floor(Math.random() * 10000)}`.substr(-4),
+  })
+  await osAsset.update({customAttributes})
+
+  return response({
+
+  })
 }
 
 const updatePatientByScanId = async (event) => {

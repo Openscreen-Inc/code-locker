@@ -10,12 +10,10 @@ module.exports = async () => {
     body: `Please enter the following code to access your prescription, issued by {asset.customAttributes.doctorName}: {asset.customAttributes.patientCode}`,
     smsTemplateName: "patientCode",
   })
-  console.log(`patientCode Template: `, JSON.stringify(patientCodeTemplate, ' ', 2))
 
 
   const pharmacistCodeTemplate = await osSmsTemplates.create({
     body: `Please enter the following code to access the prescription for {asset.customAttributes.patientName}: {asset.customAttributes.pharmacistCode}`,
     smsTemplateName: "pharmacistCode",
   })
-  console.log(`pharmacistCode Template: `, JSON.stringify(pharmacistCodeTemplate, ' ', 2))
 }
