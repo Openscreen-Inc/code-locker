@@ -1,0 +1,19 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "getAsset.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openscreen/sdk": "^0.6.1",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^8.3.1"
+  }
+}
