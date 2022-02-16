@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  app:
+    image: '{your-docker-hub-id}/os-packaging-app'
+    mem_limit: 512m
+    env_file:
+      - .env
+  proxy:
+    image: '{your-docker-hub-id}/os-packaging-proxy'
+    mem_limit: 512m
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - app

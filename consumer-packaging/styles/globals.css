@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.border-corner {
+  --size: 8px;
+  --color: #000;
+  --width: 30px;
+  border: var(--size) solid transparent;
+  --g: #0000 90deg, var(--color) 0;
+  background: conic-gradient(
+        from 90deg at top var(--size) left var(--size),
+        var(--g)
+      )
+      0 0,
+    conic-gradient(from 180deg at top var(--size) right var(--size), var(--g))
+      100% 0,
+    conic-gradient(from 0deg at bottom var(--size) left var(--size), var(--g)) 0
+      100%,
+    conic-gradient(
+        from -90deg at bottom var(--size) right var(--size),
+        var(--g)
+      )
+      100% 100%;
+  background-size: var(--width) var(--width);
+  background-origin: border-box;
+  background-repeat: no-repeat;
+}

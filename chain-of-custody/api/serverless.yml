@@ -1,0 +1,66 @@
+service: chain-of-custody-api 
+
+frameworkVersion: "2"
+
+package:
+  individually: true
+  excludeDevDependencies: true
+
+plugins:
+  - serverless-dotenv-plugin
+
+custom:
+  dotenv:
+    path: ../.env
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: "20201221"
+  httpApi:
+    cors: true
+  environment:
+    PROJECT_ID: ${env:PROJECT_ID}
+    OS_KEY: ${env:OS_KEY}
+    OS_SECRET: ${env:OS_SECRET}
+
+functions:
+  updateAsset:
+    handler: handlers/assets.updateAsset
+    events:
+      - http:
+          path: /asset/{id}
+          method: patch
+          cors: true
+
+  sendSms:
+    handler: handlers/sms.sendSms
+    events:
+      - http:
+          path: /sendSms
+          method: post
+          cors: true
+
+  getScan:
+    handler: handlers/assets.getScan
+    events:
+      - http:
+          path: /asset/{id}
+          method: get
+          cors: true
+
+  getAssetsByBatch:
+    handler: handlers/assets.getAssetsByBatch
+    events:
+      - http:
+          path: /batch/{batchId}
+          method: get
+          cors: true
+
+  getContactsByType:
+    handler: handlers/contacts.getContactsByType
+    events:
+      - http:
+          path: /contacts/{type}
+          method: get
+          cors: true

@@ -1,0 +1,8 @@
+dist/
+.direnv/
+.dynamodb/
+.serverless/
+.webpack/
+
+.env
+.envrc

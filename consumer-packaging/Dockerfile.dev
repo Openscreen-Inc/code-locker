@@ -1,0 +1,17 @@
+FROM node:16.13.1-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY ./ ./
+
+# Openscreen v0.6.2 requires an edit in the source file to work with Next.js
+RUN sed -i 's/const m=require("callable-instance")/import m from "callable-instance"/' node_modules/@openscreen/sdk/dist/index.esm.mjs
+# execute script that creates QR codes
+RUN npx ts-node initialize.ts
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

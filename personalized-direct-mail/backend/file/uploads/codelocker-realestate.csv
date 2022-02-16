@@ -1,0 +1,5 @@
+assetListingId,assetName,assetDescription,assetLocation,firstName,lastName,emailAddress,url,consentedAt,consented,address,city,provinceOrState,country,postalOrZip,cellPhone,state
+123,Poster One,Property Info One,Toronto,C4,Anonymous,C4Anonymous41@anonymous.com,https://www.example.com,123456789,true,1 Eastview Crescent North,North York,ON,Canada,M5M2W4,7789412939,Pending
+456,Poster Two,Property Info Two,Toronto,C5,Anonymous,C5Anonymous41@anonymous.com,https://www.example.com,123456789,true,2 Eastview Crescent North,North York,ON,Canada,M5M2W4,7785359239,Pending
+789,Poster Three,Property Info Three,Toronto,C6,Anonymous,C6Anonymous41@anonymous.com,https://www.example.com,123456789,true,3 Eastview Crescent North,North York,ON,Canada,M5M2W4,7784867239,Pending
+234,Poster Four,Property Info Four,Toronto,C7,Anonymous,C7Anonymous41@anonymous.com,https://www.example.com,123456789,true,7 Eastview Crescent North,North York,ON,Canada,M5M2W4,7785165239,Pending

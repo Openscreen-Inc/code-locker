@@ -1,0 +1,91 @@
+#******************************************************************** service **
+service: supplychain-backend
+
+plugins: [serverless-webpack]
+package: {individually: true, excludeDevDependencies: true}
+variablesResolutionMode: 20210326
+
+#********************************************************************* custom **
+custom:
+  env: ${file(loadEnv.js)}
+  TABLE_NAME: ${self:custom.env.TABLE_NAME, 'supplychain-inventory-demo'}
+  webpack:
+    packager: 'npm'
+    webpackConfig: 'webpack.config.js'
+    includeModules:
+      forceExclude: ['aws-sdk']
+
+#******************************************************************* provider **
+provider:
+  name: aws
+  stage: ${opt:stage, 'demo'}
+  region: ${opt:region, 'us-east-1'}
+  runtime: nodejs14.x
+  versionFunctions: false
+  lambdaHashingVersion: '20201221'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: !GetAtt InventoryTable.Arn
+  environment:
+    REGION: ${self:custom.env.REGION}
+    OS_KEY: ${self:custom.env.OS_KEY}
+    OS_SECRET: ${self:custom.env.OS_SECRET}
+    PROJECT_ID: ${self:custom.env.PROJECT_ID}
+    TABLE_NAME: ${self:custom.TABLE_NAME}
+    FRONTEND_URL: ${self:custom.env.FRONTEND_URL}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+#****************************************************************** functions **
+functions:
+  getScan:
+    handler: functions/inventory.getScan
+    events:
+      - http: {path: '/scan/{id}', method: GET, cors: true}
+
+  listItems:
+    handler: functions/inventory.listItems
+    events: [http: {path: '/', method: GET, cors: true}]
+
+  getItem:
+    handler: functions/inventory.getItem
+    events:
+      - http: {path: '/{id}', method: GET, cors: true}
+
+  deleteItem:
+    handler: functions/inventory.deleteItem
+    events:
+      - http: {path: '/{id}', method: DELETE, cors: true}
+
+  createItem:
+    handler: functions/inventory.createItem
+    events:
+      - http: {path: '/', method: POST, cors: true}
+
+  updateItem:
+    handler: functions/inventory.updateItem
+    events:
+      - http: {path: '/', method: PATCH, cors: true}
+
+#****************************************************************** resources **
+resources:
+  Resources:
+    InventoryTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.TABLE_NAME}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH

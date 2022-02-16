@@ -1,0 +1,2 @@
+assetListingId,assetName,assetDescription,assetLocation,firstName,lastName,emailAddress,url,consentedAt,consented,address,city,provinceOrState,country,postalOrZip,cellPhone,state
+123,Poster One,Property Info One,Toronto,Jane,Doe,jd@example.com,https://www.example.com,123456789,true,1 Example Crescent North,Toronto,ON,Canada,M5M2W4,6472345678,Pending
