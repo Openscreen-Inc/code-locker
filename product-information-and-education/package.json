@@ -1,7 +1,7 @@
 {
-  "name": "openscreen-consumer-packaging-demo",
+  "name": "openscreen-product-information-and-education-demo",
   "version": "1.0.0",
-  "description": "Openscreen Consumer Packaging Code Locker Example",
+  "description": "Openscreen Product Information and Education Code Locker Example",
   "keywords": ["Openscreen", "qrcode", "QR"],
   "homepage": "https://github.com/Openscreen-Inc/code-locker",
   "bugs": {
