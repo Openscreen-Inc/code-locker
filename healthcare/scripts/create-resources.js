@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'})
+require('dotenv').config()
 const {OS_KEY, OS_SECRET, API_ENDPOINT, PROJECT_ID} = process.env
 const APP_ENDPOINT = `${API_ENDPOINT}/app`
 

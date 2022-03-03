@@ -17,15 +17,14 @@ provider:
     binaryMediaTypes:
       '*.*'
   environment:
-    OS_ENV: tom-SM3oamvNJZ6s7_S3
-    OS_KEY: xxxxxxxxxxxxxxxxxx
-    OS_SECRET: xxxxxxxxxxxxxxxxxxxxxxxx
+    OS_KEY: XXXXXXXXXXXXXXXXXX
+    OS_SECRET: XXXXXXXXXXXXXXXXXXXXXXXX
+    ACCOUNT_ID: XXXXXXXXXXXXXX
+    PROJECT_ID: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+    API_ENDPOINT: https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com/dev
+    PHONE_OVERRIDE: +99999999999
     OS_DEBUG: ERROR
     DEBUG: YES
-    ACCOUNT_ID: XXXXXXXXXXXXXX
-    PROJECT_ID: 99999999-999-9999-9999-9999999999999
-    API_ENDPOINT: https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev
-    PHONE_OVERRIDE: +12225553333
 
 functions:
   appGetPrescription:
