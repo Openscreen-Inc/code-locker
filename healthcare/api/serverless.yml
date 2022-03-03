@@ -1,21 +1,28 @@
 # This Serverless configuration file describes the OS Healthcare application
 # server-side resources and is used by the Serverless deploy command, 'sls'
 # to upload and deploy the application in your AWS account.
-#
-# You need to edit the environment variables below based on your Openscreen
-# account information and those values should be the same as found in the
-# .env file under the 'scripts/' folder.
 
 service: healthcareapp
-
-frameworkVersion: "2"
 
 package:
   individually: true
   excludeDevDependencies: true
 
+custom:
+  env: ${file(dotenv.js)}
+  endpoint:
+    Fn::Join:
+      - ''
+      - - 'https://'
+        - Ref: ApiGatewayRestApi
+        - '.execute-api.'
+        - Ref: AWS::Region
+        - '.amazonaws.com/'
+        - ${self:provider.stage}
+
 provider:
   name: aws
+  stage: ${opt:stage}
   runtime: nodejs12.x
   lambdaHashingVersion: "20201221"
   timeout: 30
@@ -25,17 +32,15 @@ provider:
     binaryMediaTypes:
       '*.*'
   environment:
-#    SEE THE EDIT-THIS!.env FILE UNDER THE scripts/ FOLDER FOR AN EXPLANATION
-#    OF THESE ENVIRONMENT VARIABLES. THIS APP DOES NOT USE SERVERLESS .ENV
-    OS_KEY: XXXXXXXXXXXXXXXXXX
-    OS_SECRET: XXXXXXXXXXXXXXXXXXXXXXXX
-    ACCOUNT_ID: AA9999AA9999AA
-    PROJECT_ID: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-    API_ENDPOINT: https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev
-    OS_DEBUG: ERROR
-#    DEBUG WILL CAUSE THE LAMBDAS TO DEBUG LOG THE EVENT AND RESPONSE OBJECTS
-    DEBUG: YES
-#    PHONE_OVERRIDE: +99999999999
+    API_ENDPOINT: ${self:custom.endpoint}
+    OS_ENV: ${self:custom.env.OS_ENV}
+    OS_KEY: ${self:custom.env.OS_KEY}
+    OS_SECRET: ${self:custom.env.OS_SECRET}
+    ACCOUNT_ID: ${self:custom.env.ACCOUNT_ID}
+    PROJECT_ID: ${self:custom.env.PROJECT_ID}
+    OS_DEBUG: ${self:custom.env.OS_DEBUG}
+    DEBUG: ${self:custom.env.DEBUG}
+    PHONE_OVERRIDE: ${self:custom.env.PHONE_OVERRIDE}
 
 functions:
   appGetPrescription:
