@@ -1,37 +1,71 @@
 
 ## About
 
-This web-based reference app built in ReactJS and Serverless demonstrates how to leverage
-[Openscreen](https://www.openscreen.com) and 
-[Openscreen's Node.js SDK](https://www.docs.openscreen.com) to create a healthcare
-app that provides touchless prescriptions.
- 
-Using QR codes and SMS, this app demonstrates a secure flow for a patient to
-receive a prescription and transfer it to a pharmacy without complicated forms, web interfaces,
-or physical touch.
+This Code Locker application is a proof of concept implementation
+for a QR code use case in a healthcare setting. The scenario is outlined [here](https://docs.openscreen.com/docs/developer-portal/code-locker/health-care/)
+on the [Openscreen developer documentation portal](https://docs.openscreen.com/docs/). 
+It demonstrates a simple touchless fulfillment scenario for prescriptions.
 
-This app reference is a good starting point for seeing how an Openscreen application can be built.
+ * A patient, called Lucy, is given a script from her doctor at her clinic.
+ * The script has a QR code on it which gives allows her to "drop off" 
+the prescription at a pharmacy.
+ * She scans the QR code, enters her phone number to verify her identity, and then 
+selects her pharmacy from a list associated with her records.
+ * A link to the prescription is sent by text to her pharmacy and the pharmacist
+clicks on the link to see the prescription and begin the fulfillment process.
+ * Lucy receives a notification that her prescription is being fulfilled and
+that she'll receive a notification when it's ready.
+ * Once the pharmacist has Lucy's prescription ready, he clicks on a second link
+provided in the original text to indicate that it's ready.
+ * Lucy receives a text notification informing that the prescription is ready,
+and a link that displays a QR code which that pharmacy can use to locate her information.
+ * When she arrives at the pharmacy, she presents the QR code to the person at 
+the pick-up counter who scans it and gives Lucy her medication, completing the
+prescription fulfillment process.
 
-Access to the source code should help you understand how to use the Openscreen's Assets, 
-QR Codes, Contacts and SMS templates to speed up your development.
 
 ### How it works
 
+At the clinic office the prescription system uses Openscreen to:
+* Store a digital copy of the prescription as an Asset in Openscreen
+* To generate a QR code for the prescription
+* To associated Lucy's contact information with the Asset
+* To associated the list of Lucy's usual pharmacies with the Asset
+* To generate a QR code that Lucy will present to the pharmacy when she picks up
+her drugs.
+
+All of the data surrounding the workflow is associated with the Asset in Openscreen.
+
+When either of the QR codes is scanned, Openscreen launches the client app
+and the client app is able to access the data for the transaction and also 
+update the state of the asset.
+
+The clients app sends messages directly to the participants using Openscreen 
+and providing links to trigger the next steps.
+
+Openscreen tracks scans and manages the Asset state.
+
 ### Technology stack
 
--   [React](https://reactjs.org/)
--   [Chakra UI](https://chakra-ui.com/)
--   [Serveless](https://www.serverless.com/framework/docs/getting-started)
+This app is build entirely with JavaScript both and has two parts.
 
-## Features
+A command line `new-prescription` command that generates the fictitious prescription
+and a small set of cloud services implemented as AWS API Gateway lambdas
+and deployed using [Serveless](https://www.serverless.com/framework/docs/getting-started)
+
+That's it. The mobile "app" part of the application is a single HTML page that 
+processes the acceptance of the prescription by Lucy.
+The other interactions happen through text messages, links, and QR codes.
 
 ## Setup
+
+To get ready to run the app and do the demo 
 
 ### Requirements
 
 -   [Node.js v14+](https://nodejs.org/en/download/)
 -   NPM v6+ (comes installed with newer Node versions)
--   [Severless v2.64.1+](https://www.serverless.com/framework/docs/getting-started)
+-   [Severless v3.7.1+](https://www.serverless.com/framework/docs/getting-started)
 
 ### Openscreen API Key
 
