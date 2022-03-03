@@ -18,14 +18,14 @@ provider:
       '*.*'
   environment:
     OS_ENV: tom-SM3oamvNJZ6s7_S3
-    OS_KEY: BiDsayiB0y3zs6vh7l
-    OS_SECRET: 9ft5WlAKtxY6H3r4cSnfWUcP
+    OS_KEY: xxxxxxxxxxxxxxxxxx
+    OS_SECRET: xxxxxxxxxxxxxxxxxxxxxxxx
     OS_DEBUG: ERROR
     DEBUG: YES
-    ACCOUNT_ID: MJ0071MH9322DP
-    PROJECT_ID: 17543987-028e-4ab5-b103-1528189d14d6
-    API_ENDPOINT: https://s8hdw8i9m6.execute-api.us-east-1.amazonaws.com/dev
-    PHONE_OVERRIDE: +16478984040
+    ACCOUNT_ID: XXXXXXXXXXXXXX
+    PROJECT_ID: 99999999-999-9999-9999-9999999999999
+    API_ENDPOINT: https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev
+    PHONE_OVERRIDE: +12225553333
 
 functions:
   appGetPrescription:
