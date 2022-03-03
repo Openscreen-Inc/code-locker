@@ -70,7 +70,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-scripts/.env
+api/.env
 .env.test
 .env.production
 
@@ -119,3 +119,7 @@ dist
 
 # WebStorm
 .idea/
+
+# OS Healthcare
+QrCodeOnPrescription.png
+

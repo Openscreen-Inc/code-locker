@@ -1,116 +1,199 @@
+# Healthcare
+
+> Additionnal information regarding this example and other sample applications
+> can be found in the [Code Locker][LOCKER] section of the developer [documentation][DOCS].
+> Please note that these sample applications are for demonstration purposes only
+> and should not be used in production applications.
+
 
 ## About
 
-This web-based reference app built in ReactJS and Serverless demonstrates how to leverage
-[Openscreen](https://www.openscreen.com) and 
-[Openscreen's Node.js SDK](https://www.docs.openscreen.com) to create a healthcare
-app that provides touchless prescriptions.
- 
-Using QR codes and SMS, this app demonstrates a secure flow for a patient to
-receive a prescription and transfer it to a pharmacy without complicated forms, web interfaces,
-or physical touch.
+This Code Locker application is a proof of concept implementation
+of a QR code scenario in a healthcare setting.
+The scenario is outlined [here](https://docs.openscreen.com/docs/developer-portal/code-locker/health-care/)
+on the [Openscreen developer documentation portal](https://docs.openscreen.com/docs/).
+It demonstrates a simple touchless fulfillment scenario for prescriptions.
 
-This app reference is a good starting point for seeing how an Openscreen application can be built.
 
-Access to the source code should help you understand how to use the Openscreen's Assets, 
-QR Codes, Contacts and SMS templates to speed up your development.
+ * A patient, called Lucy, is given a script from her doctor at her clinic.
+ * The script has a QR code on it which gives allows her to "drop off"
+the prescription at a pharmacy.
+ * She scans the QR code, enters her phone number to verify her identity, and then
+selects her pharmacy from a list already in her records.
+ * A link to the prescription is sent by text to her pharmacy and the pharmacist
+clicks on the link to see the prescription and begin the fulfillment process.
+ * Lucy receives a notification that her prescription is being prepared and
+that she'll receive a notification when it's ready.
+ * Once the pharmacist has Lucy's prescription ready, he clicks on a second link
+provided in the original text to notify her.
+ * Lucy receives a text notification informing her that the prescription is ready.
+ * It includes a QR code which the pharmacy can use to locate her records and prescription.
+ * When she arrives at the pharmacy, she presents the QR code to the person at
+the pick-up counter who scans it and gives Lucy her medication, completing the
+prescription fulfillment process.
+
 
 ### How it works
 
+At the clinic office the prescription system uses Openscreen to:
+
+* Create an Asset in Openscreen and store a digital copy of the prescription with that Asset
+* Generate a QR code to be affixed to the prescription
+* Associate Lucy's contact information with the Asset
+* Associate the list of Lucy's usual pharmacies with the Asset
+* Generate a QR code that Lucy will present to the pharmacy when she picks up her medication.
+
+All of the data surrounding the workflow is associated with the Asset in Openscreen.
+
+When either of the QR codes is scanned, Openscreen launches the client app
+and the client app is able to access the data for the transaction and also
+update the state of the asset.
+
+The clients app sends messages directly to the participants using Openscreen
+and providing links to trigger the next steps.
+
+Openscreen tracks scans and manages the Asset state.
+
 ### Technology stack
 
--   [React](https://reactjs.org/)
--   [Chakra UI](https://chakra-ui.com/)
--   [Serveless](https://www.serverless.com/framework/docs/getting-started)
+This app is built entirely in JavaScript and has three parts:
 
-## Features
+- A `new-prescription` command that generates the fictitious prescription
+- A small API implemented using AWS API Gateway and Lambda functions
+- A single page HTML "app" (also implemented using AWS API Gateway and Lambda)
+that processes the acceptance of the prescription by Lucy.
+The other interactions happen through text messages, links, and QR codes.
+
+The cloud portion of the app is deployed using
+[Serveless](https://www.serverless.com/framework/docs/getting-started)
 
 ## Setup
 
-### Requirements
+#### 1. Install Node and Serverless
+
+If you don't have these already, you'll need to install the following:
 
 -   [Node.js v14+](https://nodejs.org/en/download/)
 -   NPM v6+ (comes installed with newer Node versions)
--   [Severless v2.64.1+](https://www.serverless.com/framework/docs/getting-started)
+-   [Severless v3.7.1+](https://www.serverless.com/framework/docs/getting-started)
 
-### Openscreen API Key
-
-You generate your API key using the [Openscreen Dashboard](https://www.app.openscreen.com).
-Check out the "let's get started with Openscreen" section on your Dashboard when you
-have your first account, or create a new account.
-
-The key and secret are displayed in the API Key section of the dashboard.
-Be sure to save the Secret at the time that you generate it.
-You will not be able to view the secret again and if you forget it you 
-will need to regenerate the secret.
-
-#### Project Id
-
-You can find the project id once you have created a project on the [Openscreen Dashboard](https://www.app.openscreen.com)
-
-### Local Development
-
-#### 1. Clone the repository
+#### 2. Clone the repository
 
 `$ git clone git@github.com:openscreen-tv/code-locker.git`
 
-#### 2. Navigate to the App
+You'll find _this_ project under the `./healthcare` folder.
 
-`$ cd healthcare`
+#### 3. Install the dependencies
 
-#### 3. Install Dependencies in all the sub-component directories:
+On a terminal in this directory and run the `npm install` command. This will also
+install the dependencies defined in the in the `api` folder.
 
-From the `scripts` directory run:
-`$ npm install`
+#### 4. Get your Openscreen information
 
-From the `api` directory run:
-`$ npm install`
+![Get Started](images/os-get-started.png)
 
-From the `client` directory run:
-`$ npm install`
+Create a (free) [Openscreen account](https://app.openscreen.com/signup) then
+generate your API key and secret.
 
-This application uses Openscreen credentials to create and modify your Openscreen Assets, Contacts and QR Codes. Create a  `.env` file and add the following parameters:
+![API Key and Secret](images/os-api-key.png)
+
+Then create a Project.
+
+![Account and Project](images/os-project.png)
+
+You'll need the API key, secret, account id, and project id for the environment
+settings required by the app.
+
+Rename the file named `EDIT-THIS!.env` to `.env` and replace set the values:
 
 ```
-OS_KEY="XXXXXXX-XXXXXXXX"
-OS_SECRET="XXXXXXXXX-XXXXXXXX"
-OS_DEBUG="REQUEST,RESPONSE,ERROR"
-PROJECT_ID="XXXXXXXXX"
+OS_KEY=XXXXXXXXXXXXXXXXXX
+OS_SECRET=XXXXXXXXXXXXXXXXXXXXXXXX
+ACCOUNT_ID=AA9999AA9999AA
+PROJECT_ID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 ```
 
-#### 4. Start your React App
+#### 5. Update the "fake" data
 
-You will need to start your React app server and expose the ReactJS application via  [ngrok](https://ngrok.com/). An ngrok server is required so that Openscreen can locate your local server and forward scanners to your app. Before using this app you will need to [download ngrok](https://ngrok.com/download) then run the followng commands:
+In the source file `./healthcare/scripts/create-resources.js` you'll find an number of
+`@TODO` tags where the script creates contacts to be associated with the prescription
+(Asset), like:
 
-Start your local react server on your client
-`$ npm start --prefix=client`
+```
+const clinic = {
+  firstName: 'City Clinic',
+  cellPhone: '+12015551212', // @TODO: EDIT THIS
+  type: ContactRoles.CLINIC,
+}
+```
 
-Start an Ngrok tunnel on to your localhost:3000
-`$  ~/ngrok http 3000`
+If you want to, you can put real cell phone numbers there and play out the
+scenario with other people.
 
-We'll need to save your current tunnel url and pass it into the QR Code that we create. You can do that by running:
-`$  npm run getTunnel`
+As an alternative, in the `.env` file, uncomment and edit the line that says:
 
-#### 5. Create a Prescription
+```# PHONE_OVERRIDE=+12015551212```
 
-With your Openscreen credentials setup in your `.env` file we can now create our first 
-Prescription and the QR codes associated with that.
+If you put your own phone number here, all SMS messages from the app will be
+sent to your phone.
 
-`$ ./scripts/set-up
+#### 6. Deploy the API using Serverless
 
-Set-up create SMS templates used to send text messages to the patient and pharmacist and 
-adds the contact information of the various actors in the scenario.
+Now you'll need to deploy the App to your AWS account.
 
-It uploads a prescription document associated with the prescription and generates two QR codes,
-one for the patient, and the other for the pharmacist.
+Assuming your AWS credentials and config are set up, you can use the
+following command:
 
-#### 7. Start your backend
+`sls deploy --stage dev`
 
-You're now ready to deploy your Serverless backend and start using Openscreen to keep track of your soil bag workflows. 
+If you have more than one Amazon AWS account configured, you may need to use
+the option `--aws-profile` or set the environment variable `AWS_PROFILE`
+to indicate which profile you want to use.
 
-Run the following script to deploy your API:
+Your output should look like this:
 
-`$ sls deploy`
+![Serverless deploy output](images/os-sls-output2.png)
 
-#### 8. Test your app
+#### 7. One last `.env` setting
 
+In order for the `new-prescription` command to run, you need to update the
+.env file under `./healthcare` with the API Gateway endpoint that you see in
+the Serverless deployment output.
+In this case:
+
+`API_ENDPOINT=https://x999xx9x9x.execute-api.us-east-1.amazonaws.com/dev`
+
+Now you're ready to run the scenario.
+
+#### 7. Create a Prescription
+
+With your app deployed to AWS and your `.env` file updated,
+you can now create your first Prescription and the QR codes associated with it.
+
+From the `./healthcare/scripts` folder run the following command:
+
+`./new-prescription`
+
+You should see a file appear under the `./healthcare/scripts` folder called: `QrCodeOnPrescription.png`
+
+Open the PNG file and the QR code should display on your screen.
+
+_On the Mac from Terminal use the following command:_ `open ./scripts/QrCodeOnPrescription.png`
+
+Scan it to begin the scenario.
+
+## Links
+
+- [Openscreen website][Openscreen]
+- [Developer Documentation][DOCS]
+- [JavaScript SDK][SDK]
+- [Additional Examples and Use Cases][LOCKER]
+
+[Openscreen]: https://openscreen.com
+[DASH]: https://app.openscreen.com
+[SDK]: https://github.com/openscreen-tv/openscreen-sdk
+[LOCKER]: https://docs.openscreen.com/docs/developer-portal/node-sdk/code-locker/overview/
+[DOCS]: https://docs.openscreen.com/docs/
+[NODE]: https://nodejs.org/en/
+[SLS]: https://www.serverless.com
+[AWS]: https://aws.amazon.com
