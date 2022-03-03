@@ -1,25 +1,21 @@
 {
-  "name": "openscreen-healthcare-demo",
-  "version": "0.1.0",
-  "description": "Openscreen Healthcare Code Locker Demo",
-  "homepage": "https://github.com/openscreen-inc/code-locker/health-care#readme",
-  "bugs": {
-    "url": "https://github.com/Openscreen-Inc/code-locker/issues",
-    "email": "dev@openscreen.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Openscreen-Inc/code-locker",
-    "directory": "healthcare"
-  },
-  "license": "SEE LICENSE IN LICENSE",
-  "author": {
-    "name": "openscreen-com",
-    "email": "dev@openscreen.com"
-  },
+  "name": "Openscreen Healthcare App",
+  "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "install": "npm i --prefix api && npm i --prefix scripts && npm i --prefix client"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openscreen-inc/code-locker/health-care"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openscreen-inc/code-locker/health-care/issues"
+  },
+  "homepage": "https://github.com/openscreen-inc/code-locker/health-care#readme",
   "dependencies": {}
 }

@@ -1,7 +1,7 @@
 module.exports = {
 
   ContactRoles: {
-    DOCTOR: 'DOCTOR',
+    CLINIC: 'CLINIC',
     PATIENT: 'PATIENT',
     PHARMACIST: 'PHARMACIST',
   }
