@@ -119,3 +119,7 @@ dist
 
 # WebStorm
 .idea/
+
+# OS Healthcare
+QrCodeOnPrescription.png
+

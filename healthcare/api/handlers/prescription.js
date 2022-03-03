@@ -3,14 +3,16 @@ const {OS_KEY, OS_SECRET, API_ENDPOINT, PHONE_OVERRIDE, DEBUG} = process.env
 const {PrescriptionStates} = require('./lib/prescription-states')
 const {ContactRoles} = require('./lib/contact-roles')
 const {TemplateNames} = require('./lib/template-names')
-const {response, pdfResponse, pngResponse, currentStateMessage} = require('./lib/util')
 const {QrCodeTypes} = require('./lib/qr-code-types')
+const {response, pdfResponse, pngResponse, currentStateMessage} = require('./lib/util')
 
 const {Openscreen} = require('@openscreen/sdk')
 
 const os = new Openscreen().config({
   key: process.env.OS_KEY,
   secret: process.env.OS_SECRET,
+  // DON'T WORRY ABOUT OS_ENV. YOUR SDK WILL CONNECT
+  // TO OUR PRODUCTION SERVERS AUTOMATICALLY.
   environment: process.env.OS_ENV,
 })
 
