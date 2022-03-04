@@ -108,7 +108,7 @@ PROJECT_ID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 
 #### 5. Update the "fake" data
 
-In the source file `./scripts/create-resources.js` you'll find an number of
+In the source file `./healthcare/scripts/create-resources.js` you'll find an number of
 `@TODO` tags where the script creates contacts to be associated with the prescription
 (Asset), like:
 
@@ -163,9 +163,11 @@ Now you're ready to run the scenario.
 With your app deployed to AWS and your `.env` file updated, 
 you can now create your first Prescription and the QR codes associated with it.
 
-`./scripts/new-prescription`
+From the `./healthcare/scripts` folder run the following command:
 
-You should see a file appear under the `./scripts` folder called: `QrCodeOnPrescription.png`
+`./new-prescription`
+
+You should see a file appear under the `./healthcare/scripts` folder called: `QrCodeOnPrescription.png`
 
 Open the PNG file and the QR code should display on your screen.
 
