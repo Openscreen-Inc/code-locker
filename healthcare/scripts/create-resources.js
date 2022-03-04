@@ -22,31 +22,31 @@ const os = new Openscreen().config({
 
 const clinic = {
   firstName: 'City Clinic',
-  cellPhone: '+14168984040', // EDIT THIS
+  cellPhone: '+12015551211', // @TODO: EDIT THIS
   type: ContactRoles.CLINIC,
 }
 
 const patient = {
   firstName: 'Lucy',
-  cellPhone: '+16478984040', // EDIT THIS
+  cellPhone: '+12015551212', // @TODO: EDIT THIS
   type: ContactRoles.PATIENT,
 }
 
 const pharmacy1 = {
   firstName: 'PharmaNow',
-  cellPhone: '+12898984041', // EDIT THIS
+  cellPhone: '+12015551213', // @TODO: EDIT THIS
   type: ContactRoles.PHARMACIST,
 }
 
 const pharmacy2 = {
   firstName: 'Drugs-R-Us',
-  cellPhone: '+12898984042', // EDIT THIS
+  cellPhone: '+12015551214', // @TODO: EDIT THIS
   type: ContactRoles.PHARMACIST,
 }
 
 const pharmacy3 = {
   firstName: 'Pharmex',
-  cellPhone: '+12898984043', // EDIT THIS
+  cellPhone: '+12015551215', // @TODO: EDIT THIS
   type: ContactRoles.PHARMACIST,
 }
 
